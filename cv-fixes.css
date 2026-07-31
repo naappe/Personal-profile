@@ -1,0 +1,24 @@
+.photo-wrap {
+  width: 164px !important;
+  height: 206px !important;
+  border-radius: 14px !important;
+  padding: 6px;
+  background: #fff;
+}
+.photo-wrap img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center center !important;
+  background: #fff;
+  border-radius: 9px;
+}
+.identity h1 { letter-spacing: -0.025em; }
+.summary { line-height: 1.68; }
+@media (max-width: 620px) {
+  .photo-wrap { width: 148px !important; height: 186px !important; }
+}
+@media print {
+  .photo-wrap { width: 38mm !important; height: 48mm !important; padding: 1.5mm; }
+  .photo-wrap img { object-fit: contain !important; }
+}

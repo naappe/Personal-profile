@@ -11,6 +11,11 @@
     localStorage.setItem(storageKey, JSON.stringify(value));
   }
 
+  function isPendingDate(value) {
+    const text = String(value || "").trim().toLowerCase();
+    return !text || text.includes("confirm") || text.includes("tbd") || text.includes("unknown");
+  }
+
   function formatRange(start, end) {
     const cleanStart = (start || "").trim();
     const cleanEnd = (end || "").trim();
@@ -18,6 +23,17 @@
     if (cleanStart && !cleanEnd) return cleanStart;
     if (!cleanStart && cleanEnd) return cleanEnd;
     return `${cleanStart} – ${cleanEnd}`;
+  }
+
+  function markPendingDates() {
+    document.querySelectorAll('#experienceList .date').forEach(el => {
+      el.classList.toggle('pending-date', isPendingDate(el.textContent));
+      if (el.classList.contains('pending-date')) {
+        el.setAttribute('aria-label', 'Employment dates are incomplete and hidden in public and print views');
+      } else {
+        el.removeAttribute('aria-label');
+      }
+    });
   }
 
   function renderReferences(saved) {
@@ -57,8 +73,8 @@
     block.className = 'extra-editor-block';
     block.innerHTML = `
       <h3>Job dates</h3>
-      <div class="field"><label>Hostess position</label><div class="date-grid"><input id="hostessStart" placeholder="Start, e.g. Feb 2021"><input id="hostessEnd" placeholder="End, e.g. Present"></div></div>
-      <div class="field"><label>Management Trainee (OJT)</label><div class="date-grid"><input id="ojtStart" placeholder="Start month/year"><input id="ojtEnd" placeholder="End month/year"></div></div>
+      <div class="field"><label>Hostess position</label><div class="date-grid"><input id="hostessStart" aria-label="Hostess start date" placeholder="Start, e.g. Feb 2021"><input id="hostessEnd" aria-label="Hostess end date" placeholder="End, e.g. Present"></div></div>
+      <div class="field"><label>Management Trainee (OJT)</label><div class="date-grid"><input id="ojtStart" aria-label="OJT start date" placeholder="Start month/year"><input id="ojtEnd" aria-label="OJT end date" placeholder="End month/year"></div></div>
       <h3>References</h3>
       <div class="field"><label>Reference 1 name</label><input id="ref1Name"></div>
       <div class="field"><label>Position / company</label><input id="ref1Role"></div>
@@ -67,10 +83,11 @@
       <div class="field"><label>Reference 2 name</label><input id="ref2Name"></div>
       <div class="field"><label>Position / company</label><input id="ref2Role"></div>
       <div class="field"><label>Phone</label><input id="ref2Phone"></div>
-      <p class="save-note">These fields save automatically and appear in the CV and PDF.</p>`;
+      <p class="save-note">Incomplete job dates stay visible here for editing, but are hidden from public view and PDF.</p>`;
     controls.before(block);
 
     const splitDate = value => {
+      if (isPendingDate(value)) return ['', ''];
       const parts = String(value || '').split(/\s+[–-]\s+/);
       return [parts[0] || '', parts.slice(1).join(' – ') || ''];
     };
@@ -109,6 +126,7 @@
       const dateEls = document.querySelectorAll('#experienceList .date');
       if (dateEls[0]) dateEls[0].textContent = current.experience[0]?.date || '';
       if (dateEls[1]) dateEls[1].textContent = current.experience[1]?.date || '';
+      markPendingDates();
       renderReferences(current);
     });
   }
@@ -123,6 +141,9 @@
     saved.summary = approvedSummary;
     writeSaved(saved);
 
+    const photo = document.getElementById('profilePhoto');
+    if (photo) photo.alt = 'Portrait of Jenisha Adhikari';
+
     const hint = document.querySelector('label[for="photoInput"]')?.closest('.field')?.nextElementSibling;
     if (hint?.classList.contains('hint')) {
       hint.textContent = "Upload a passport-style portrait. The full rectangular photo area is preserved without cutting the face or shoulders.";
@@ -130,6 +151,10 @@
 
     injectEditor(saved);
     renderReferences(saved);
+    markPendingDates();
+
+    document.getElementById('toggleMode')?.addEventListener('click', () => setTimeout(markPendingDates, 0));
+    window.addEventListener('beforeprint', markPendingDates);
   }
 
   if (document.readyState === "loading") {

@@ -23,12 +23,29 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Prepare site
+        run: |
+          rm -rf _site
+          mkdir _site
+          cp -R index.html cv-fixes.css cv-fixes.js assets _site/ 2>/dev/null || true
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('_site/index.html')
+          html = p.read_text(encoding='utf-8')
+          html = html.replace('</head>', '  <link rel="stylesheet" href="./cv-fixes.css?v=2">\n</head>')
+          html = html.replace('</body>', '  <script src="./cv-fixes.js?v=2"></script>\n</body>')
+          p.write_text(html, encoding='utf-8')
+          PY
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4

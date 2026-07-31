@@ -1,0 +1,60 @@
+/* Honest skills treatment for the template-style CV.
+   Keeps the visual energy of v2 without fabricated percentage bars. */
+
+#skillsList.chips {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  column-gap: 12px !important;
+  row-gap: 8px !important;
+}
+
+#skillsList .chip {
+  position: relative;
+  min-width: 0;
+  padding: 0 0 6px 12px !important;
+  border: 0 !important;
+  border-bottom: 1px solid var(--line) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: var(--text) !important;
+  font-size: 10.5px !important;
+  line-height: 1.35 !important;
+}
+
+#skillsList .chip::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute;
+  left: 0;
+  top: 0.48em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--navy);
+}
+
+@media (max-width: 700px) {
+  #skillsList.chips {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media print {
+  #skillsList.chips {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    column-gap: 3mm !important;
+    row-gap: 2mm !important;
+  }
+
+  #skillsList .chip {
+    padding: 0 0 1.5mm 3mm !important;
+    font-size: 7.8pt !important;
+  }
+
+  #skillsList .chip::before {
+    width: 1mm;
+    height: 1mm;
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

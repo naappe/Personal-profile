@@ -33,7 +33,17 @@
   color: var(--primary) !important;
   letter-spacing: -0.025em;
 }
-.role { color: var(--primary-soft) !important; }
+.role {
+  color: #6b7280 !important;
+  font-size: 15px !important;
+  font-weight: 400 !important;
+  line-height: 1.45 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  letter-spacing: 0 !important;
+}
 .summary { color: var(--text) !important; line-height: 1.66; }
 
 .section { margin-top: 32px !important; }
@@ -149,4 +159,9 @@ body.readonly .pending-date { display: none !important; }
   .pending-date { display: none !important; }
   #skillsList.chips { column-gap: 4mm; row-gap: 2mm; }
   #skillsList .chip { font-size: 8.5pt !important; }
+  .role {
+    color: #666 !important;
+    font-size: 10.5pt !important;
+    font-weight: 400 !important;
+  }
 }

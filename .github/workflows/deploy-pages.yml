@@ -28,8 +28,9 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf _site
-          mkdir -p _site
+          mkdir -p _site/v2
           cp reference.html _site/index.html
+          cp v2/index.html v2/style.css _site/v2/
           cp -R assets _site/assets
           touch _site/.nojekyll
 

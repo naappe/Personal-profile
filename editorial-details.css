@@ -1,56 +1,153 @@
-/* Final editorial detailing for the marked areas */
-.page:first-child{padding-bottom:18mm}
-.page:first-child::after{content:"Hospitality  •  Guest Service  •  Food & Beverage";position:absolute;left:42px;right:0;bottom:26px;height:34px;display:flex;align-items:center;justify-content:center;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+/* Reference-accurate two-page editorial layout.
+   This file changes geometry only; editable content stays data-driven. */
 
-/* Left column: contact, education, expertise */
-.sidebar .section{position:relative;padding-bottom:4px}
-.sidebar .section:not(:last-child)::after{content:"";display:block;width:82%;height:1px;margin-top:18px;background:#bfc4c8}
-.sidebar .section-title{font-size:11px;letter-spacing:.11em;margin-bottom:12px}
-.contact{gap:7px;line-height:1.42}
-.contact-item{align-items:start}
-.row{padding:8px 0}
-.row strong{font-size:9.8px;line-height:1.3}
-.row small{font-size:8.7px;line-height:1.45}
-.skills{grid-template-columns:1fr;gap:0}
-.skill{padding:5px 0;border-bottom:0}
-.skill::before{display:none}
-.skill::after{content:"";display:block;height:3px;margin-top:4px;background:linear-gradient(90deg,var(--ink) 0 66%,#c9cccf 66% 100%)}
+/* Shared paper geometry */
+.page{min-height:297mm}
+.hero{
+  grid-template-columns:138px minmax(0,1fr)!important;
+  gap:48px!important;
+  min-height:224px!important;
+  padding:30px 46px 0!important;
+}
+.hero::before{
+  left:0!important;
+  top:62px!important;
+  width:112px!important;
+  height:34px!important;
+}
+.hero::after{
+  left:190px!important;
+  top:62px!important;
+  width:30px!important;
+  height:30px!important;
+}
+.photo{
+  width:138px!important;
+  height:174px!important;
+}
+.photo img{object-fit:cover!important;object-position:center top!important}
+.identity h1{font-size:32px!important;line-height:1.02!important;margin-bottom:4px!important}
+.role{font-size:10px!important;font-weight:400!important;letter-spacing:.02em!important;text-transform:none!important;color:#71767c!important}
+.summary{max-width:455px!important;margin-top:24px!important;font-size:9.2px!important;line-height:1.55!important}
+.profile-links{
+  grid-template-columns:1fr 1fr 48px!important;
+  gap:20px!important;
+  margin-top:22px!important;
+  padding-top:13px!important;
+}
 
-/* Work experience: stronger timeline composition */
-.main .section:first-child{margin-bottom:34px}
-.timeline{gap:38px}
-.timeline::before{left:12px;background:#777;width:1px}
-.entry{padding-left:36px}
-.entry::before{left:8px;width:10px;height:28px;background:var(--ink)}
-.entry-head{align-items:flex-start}
-.entry h3{font-size:11px;letter-spacing:.03em}
-.meta{margin-top:2px;margin-bottom:7px}
-.entry ul{line-height:1.48}
+/* Both pages use the same exact 29/71 body columns and baseline */
+.page-one-body,.cover-body{
+  grid-template-columns:29% 71%!important;
+  padding-left:46px!important;
+  padding-right:46px!important;
+}
+.page-one-body{padding-top:18px!important;padding-bottom:72px!important}
+.cover-body{padding-top:18px!important;padding-bottom:46px!important}
+.left-col,.info-col{padding-right:30px!important}
+.right-col,.letter-col{
+  padding-left:30px!important;
+  border-left:1px solid #d4d7da!important;
+}
 
-/* Cover letter page: editorial blocks */
-.page:nth-child(2) .summary{max-width:510px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
-.cover{padding-top:8px}
-.cover-grid{margin-top:0}
-.cover-info{padding-top:2px}
-.cover-info .cover-label{margin-bottom:4px}
-.cover-info .cover-value{padding-bottom:14px;margin-bottom:16px;border-bottom:1px solid #d8dadd;white-space:pre-line}
-.cover-main{padding-top:0}
-.cover-main h2{font-size:12px;letter-spacing:.1em;margin-bottom:8px}
-.cover-main h3{font-size:10px;margin-bottom:14px}
-.cover-text{font-size:9.8px;line-height:1.72;max-width:100%}
-.signature{position:relative;margin-top:34px;padding-top:14px;width:190px}
-.signature::before{content:"";position:absolute;left:0;top:0;width:58px;height:2px;background:var(--blue)}
-.signature strong{font-size:10px;letter-spacing:.04em;text-transform:uppercase}
-.signature span{display:block;margin-top:2px}
+/* Page 1 left column: deliberate editorial spacing */
+.left-col .block{
+  margin:0!important;
+  padding:0 0 24px!important;
+  border-bottom:1px solid #aeb4b9!important;
+}
+.left-col .block+ .block{padding-top:32px!important}
+.left-col .block:last-child{border-bottom:0!important;padding-bottom:0!important}
+.block-title{
+  margin-bottom:13px!important;
+  font-size:10.5px!important;
+  letter-spacing:.11em!important;
+}
+.contact-list{gap:7px!important;font-size:8.8px!important;line-height:1.45!important}
+.edu-item{margin-bottom:16px!important}
+.edu-item strong{font-size:9px!important;line-height:1.3!important}
+.edu-item span{font-size:8.2px!important;line-height:1.45!important}
+.expertise{gap:11px!important}
+.expertise-item{font-size:8.5px!important}
+.bar{height:2px!important;margin-top:5px!important}
 
-/* Header social/contact band, matching reference without inventing social accounts */
-.page:nth-child(2) .identity::after{content:"Phone  +977 9810432149    •    Email  adhikarijenisha7429@gmail.com";display:block;margin-top:22px;padding-top:12px;border-top:1px solid var(--rule);font-size:8.8px;line-height:1.4;color:var(--text);letter-spacing:.01em}
+/* Page 1 work experience: narrow timeline close to the main edge */
+.right-col .block{margin:0!important}
+.work-title{margin-bottom:21px!important}
+.timeline{gap:38px!important}
+.timeline::before{left:8px!important;top:0!important;bottom:0!important}
+.job{padding-left:30px!important}
+.date-tag{
+  left:0!important;
+  width:16px!important;
+  min-height:50px!important;
+  padding:6px 2px!important;
+  font-size:6px!important;
+}
+.job h3{font-size:9.6px!important;letter-spacing:.025em!important}
+.job-meta{margin:3px 0 9px!important}
+.job ul{font-size:8.4px!important;line-height:1.5!important}
+
+/* Page 1 band starts at main-column boundary only */
+.footer-band{
+  left:calc(29% + 46px)!important;
+  right:0!important;
+  bottom:28px!important;
+  height:36px!important;
+}
+
+/* Page 2 body aligns with Page 1 and keeps a narrow letter measure */
+.info-group{margin-bottom:34px!important}
+.info-label{margin-bottom:10px!important;font-size:10px!important}
+.info-value{font-size:8.8px!important;line-height:1.55!important}
+.letter-col{padding-right:44px!important}
+.letter-col h2{margin-bottom:14px!important;font-size:11px!important}
+.letter-col h3{margin-bottom:18px!important;font-size:9.2px!important}
+.letter-text{
+  max-width:430px!important;
+  font-size:8.9px!important;
+  line-height:1.72!important;
+}
+.signature{margin-top:42px!important}
+.signature-script{font-size:21px!important}
+
+/* Keep editor and mobile usable without altering print geometry */
+@media(max-width:700px){
+  .right-col,.letter-col{border-left:0!important}
+  .footer-band{left:0!important}
+}
 
 @media print{
-  .page:first-child::after{left:11mm;bottom:7mm;height:9mm;font-size:7.5pt}
-  .sidebar .section:not(:last-child)::after{margin-top:4.5mm}
-  .entry::before{width:2.6mm;height:7mm;left:2mm}
-  .page:nth-child(2) .identity::after{margin-top:5mm;padding-top:3mm;font-size:6.8pt}
-  .cover-info .cover-value{padding-bottom:3.5mm;margin-bottom:4mm}
-  .signature{margin-top:9mm;padding-top:4mm;width:50mm}
+  .hero{
+    grid-template-columns:36.5mm minmax(0,1fr)!important;
+    gap:12.7mm!important;
+    min-height:59mm!important;
+    padding:8mm 12mm 0!important;
+  }
+  .hero::before{top:16.4mm!important;width:29.5mm!important;height:9mm!important}
+  .hero::after{left:50.3mm!important;top:16.4mm!important;width:8mm!important;height:8mm!important}
+  .photo{width:36.5mm!important;height:46mm!important}
+  .identity h1{font-size:24pt!important}
+  .role{font-size:7.5pt!important}
+  .summary{margin-top:6.3mm!important;font-size:7pt!important;max-width:120mm!important}
+  .profile-links{margin-top:5.8mm!important;padding-top:3.4mm!important}
+  .page-one-body,.cover-body{
+    grid-template-columns:29% 71%!important;
+    padding-left:12mm!important;
+    padding-right:12mm!important;
+  }
+  .page-one-body{padding-top:4.8mm!important;padding-bottom:19mm!important}
+  .cover-body{padding-top:4.8mm!important;padding-bottom:12mm!important}
+  .left-col,.info-col{padding-right:8mm!important}
+  .right-col,.letter-col{padding-left:8mm!important}
+  .left-col .block{padding-bottom:6.4mm!important}
+  .left-col .block+ .block{padding-top:8.5mm!important}
+  .work-title{margin-bottom:5.5mm!important}
+  .timeline{gap:10mm!important}
+  .job{padding-left:8mm!important}
+  .date-tag{width:4.2mm!important;min-height:13.2mm!important}
+  .footer-band{left:calc(29% + 12mm)!important;bottom:7.4mm!important;height:9.5mm!important}
+  .letter-col{padding-right:11.5mm!important}
+  .letter-text{max-width:113mm!important;font-size:6.7pt!important;line-height:1.72!important}
+  .signature{margin-top:11mm!important}
 }

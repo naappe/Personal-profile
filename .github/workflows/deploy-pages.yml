@@ -24,32 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare self-contained site
+      - name: Prepare site
         run: |
           set -euo pipefail
           rm -rf _site
           mkdir -p _site
-          cp index.html _site/index.html
+          cp index.html _site/
           cp -R assets _site/assets
           touch _site/.nojekyll
-
-          python3 - <<'PY'
-          from pathlib import Path
-
-          page = Path('_site/index.html')
-          css = Path('editorial-details.css').read_text(encoding='utf-8')
-          html = page.read_text(encoding='utf-8')
-
-          marker = '<!-- final-editorial-details -->'
-          inline = f'\n{marker}\n<style>\n{css}\n</style>\n'
-          html = html.replace('</head>', inline + '</head>')
-          page.write_text(html, encoding='utf-8')
-          PY
-
-      - name: Verify final design is embedded
-        run: |
-          grep -q "final-editorial-details" _site/index.html
-          grep -q "Hospitality  •  Guest Service  •  Food & Beverage" _site/index.html
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

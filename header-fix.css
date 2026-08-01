@@ -1,0 +1,104 @@
+/* InDesign-style header reconstruction: ribbon behind portrait, one square after portrait. */
+.cv-hero{
+  grid-template-columns:136px minmax(0,1fr)!important;
+  gap:34px!important;
+  min-height:208px!important;
+  padding:22px 42px 0!important;
+  align-items:start!important;
+}
+.cv-hero::before{
+  left:0!important;
+  top:54px!important;
+  width:86px!important;
+  height:32px!important;
+  background:var(--blue)!important;
+  z-index:1!important;
+}
+.cv-hero::after{
+  left:180px!important;
+  top:54px!important;
+  width:30px!important;
+  height:30px!important;
+  background:var(--blue)!important;
+  z-index:3!important;
+}
+.photo-wrap{
+  z-index:2!important;
+  width:136px!important;
+  height:178px!important;
+  margin:0!important;
+}
+.photo-wrap img{
+  object-fit:contain!important;
+  object-position:center top!important;
+}
+.hero-content{
+  position:relative!important;
+  z-index:3!important;
+  padding-top:0!important;
+}
+.identity{margin-bottom:10px!important;}
+.identity h1{margin-bottom:3px!important;}
+.role{
+  color:#858a90!important;
+  font-size:11px!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+.summary{
+  max-width:470px!important;
+  font-size:10.7px!important;
+  line-height:1.48!important;
+}
+.summary::before{
+  width:34px!important;
+  margin-bottom:10px!important;
+}
+.cv-body{padding-top:0!important;}
+.section{margin-bottom:24px!important;}
+.skill{padding-top:5px!important;padding-bottom:5px!important;}
+.timeline{gap:30px!important;}
+.timeline::before{width:1px!important;}
+.entry::before{width:9px!important;height:9px!important;left:9px!important;}
+.icon{font-size:9px!important;}
+
+@media(max-width:1000px){
+  .cv-hero{padding-left:32px!important;padding-right:32px!important;}
+  .cv-hero::before{width:72px!important;}
+  .cv-hero::after{left:170px!important;}
+}
+
+@media(max-width:700px){
+  .cv-hero{grid-template-columns:1fr!important;gap:16px!important;min-height:auto!important;padding:20px 22px 16px!important;}
+  .cv-hero::before{left:0!important;top:50px!important;width:70px!important;height:28px!important;}
+  .cv-hero::after{left:160px!important;top:50px!important;width:26px!important;height:26px!important;}
+  .hero-content{padding-top:0!important;}
+}
+
+@media print{
+  .cv-hero{
+    grid-template-columns:36mm minmax(0,1fr)!important;
+    gap:9mm!important;
+    min-height:55mm!important;
+    padding:6mm 11mm 0!important;
+  }
+  .cv-hero::before{
+    left:0!important;
+    top:14mm!important;
+    width:23mm!important;
+    height:8mm!important;
+  }
+  .cv-hero::after{
+    left:47.5mm!important;
+    top:14mm!important;
+    width:8mm!important;
+    height:8mm!important;
+  }
+  .photo-wrap{width:36mm!important;height:47mm!important;}
+  .hero-content{padding-top:0!important;}
+  .identity{margin-bottom:2.5mm!important;}
+  .role{font-size:7.7pt!important;}
+  .summary{font-size:7.9pt!important;line-height:1.45!important;}
+  .summary::before{margin-bottom:2.5mm!important;}
+}

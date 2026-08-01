@@ -31,7 +31,7 @@ jobs:
           set -euo pipefail
           rm -rf _site
           mkdir -p _site
-          cp index.html header-fix.css _site/
+          cp index.html header-fix.css final-editorial-pass.css _site/
           cp -R assets _site/assets
           touch _site/.nojekyll
           python3 - <<'PY'
@@ -42,20 +42,18 @@ jobs:
           path = Path('_site/index.html')
           html = path.read_text(encoding='utf-8')
 
-          # Use the committed portrait asset and refresh saved defaults.
-          html = html.replace("const KEY='jenisha-personal-profile-v6';", "const KEY='jenisha-personal-profile-v8';")
+          html = html.replace("const KEY='jenisha-personal-profile-v6';", "const KEY='jenisha-personal-profile-v9';")
           html = html.replace("photo:'assets/profile.jpg'", "photo:'assets/profile.svg'")
-
-          # Keep only dates/statuses supported by the supplied CV documents.
           html = html.replace("meta:'Status and dates to confirm'", "meta:'In Progress'")
           html = html.replace("meta:'Completion year to confirm'", "meta:''")
           html = html.replace("'Three-day Mixology Training'", "'Mixology — 3-Day Training'")
-
-          # Prevent unsupported placeholders from appearing in the public CV/PDF.
           html = html.replace("<small>${x.school}<br>${x.meta}</small>", "<small>${x.school}${x.meta?`<br>${x.meta}`:''}</small>")
 
-          # Load the final optical header correction after the embedded styles.
-          html = html.replace('</head>', f'<link rel="stylesheet" href="./header-fix.css?v={version}">\n</head>')
+          html = html.replace('</head>', (
+              f'<link rel="stylesheet" href="./header-fix.css?v={version}">\n'
+              f'<link rel="stylesheet" href="./final-editorial-pass.css?v={version}">\n'
+              '</head>'
+          ))
 
           path.write_text(html, encoding='utf-8')
           PY

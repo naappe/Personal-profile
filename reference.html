@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Jenisha Adhikari | Hospitality CV</title>
+<title>Jenisha Adhikari - Hospitality CV</title>
 <style>
   :root {
     --paper:#f7f2e9;
@@ -87,7 +87,7 @@
   <button id="saveBtn">Save draft</button>
   <button id="printBtn">Print / PDF</button>
   <button id="resetBtn">Reset</button>
-  <span class="status" id="status">White Saffron CV theme</span>
+  <span class="status" id="status">Verified CV details added</span>
 </div>
 <main class="document" id="cvDocument">
 <section class="page">
@@ -163,7 +163,7 @@
 </main>
 <script>
 const doc=document.getElementById('cvDocument'),status=document.getElementById('status');let editing=false;
-function setEditing(v){editing=v;doc.querySelectorAll('h1,h2,h3,p,li,.side-name,.side-copy,.title,.tagline,.job-title,.job-date,.job-place,.skill,.meta,.contact-row span,.footer').forEach(e=>e.contentEditable=v?'true':'false');document.getElementById('editBtn').textContent=v?'Finish editing':'Enable editing';status.textContent=v?'Editing enabled':'White Saffron CV theme';}
+function setEditing(v){editing=v;doc.querySelectorAll('h1,h2,h3,p,li,.side-name,.side-copy,.title,.tagline,.job-title,.job-date,.job-place,.skill,.meta,.contact-row span,.footer').forEach(e=>e.contentEditable=v?'true':'false');document.getElementById('editBtn').textContent=v?'Finish editing':'Enable editing';status.textContent=v?'Editing enabled':'Verified CV details added';}
 document.getElementById('editBtn').onclick=()=>setEditing(!editing);
 document.getElementById('saveBtn').onclick=()=>{localStorage.setItem('jenisha-white-saffron-cv-v2',doc.innerHTML);status.textContent='Draft saved in this browser';};
 document.getElementById('printBtn').onclick=()=>{setEditing(false);window.print();};

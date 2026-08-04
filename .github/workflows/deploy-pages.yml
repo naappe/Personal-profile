@@ -25,13 +25,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare CV site
+      - name: Prepare self-contained CV site
         shell: bash
         run: |
           set -euo pipefail
 
           rm -rf _site
-          mkdir -p _site/assets
+          mkdir -p _site
 
           cat \
             assets/cv-part-00.b64 \
@@ -41,16 +41,14 @@ jobs:
             | tr -d '\r\n ' \
             | base64 --decode > _site/index.html
 
-          sed -n 's#.*data:image/jpeg;base64,\([^\"]*\).*#\1#p' \
-            assets/profile.svg \
-            | base64 --decode > _site/assets/profile.jpg
+          python3 -c "from pathlib import Path; import re; html_path=Path('_site/index.html'); svg=Path('assets/profile.svg').read_text(encoding='utf-8'); match=re.search(r'data:image/jpeg;base64,([^\"<]+)', svg); assert match, 'Embedded JPEG not found'; html=html_path.read_text(encoding='utf-8').replace('assets/profile.svg', 'data:image/jpeg;base64,' + match.group(1)); html_path.write_text(html, encoding='utf-8')"
 
           test -s _site/index.html
-          test -s _site/assets/profile.jpg
-
-          sed -i \
-            's#assets/profile.svg#assets/profile.jpg?v=20260805-photo-fix#g' \
-            _site/index.html
+          grep -q 'data:image/jpeg;base64,' _site/index.html
+          if grep -q 'assets/profile.svg' _site/index.html; then
+            echo 'Photo reference was not embedded.' >&2
+            exit 1
+          fi
 
           touch _site/.nojekyll
 

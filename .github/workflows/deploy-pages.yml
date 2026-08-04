@@ -29,6 +29,7 @@ jobs:
           set -euo pipefail
           rm -rf _site
           mkdir -p _site/assets
+
           cat \
             assets/cv-part-00.b64 \
             assets/cv-part-01.b64 \
@@ -36,7 +37,28 @@ jobs:
             assets/cv-part-03.b64 \
             | tr -d '\r\n ' \
             | base64 --decode > _site/index.html
-          cp assets/profile.svg _site/assets/profile.svg
+
+          python - <<'PY'
+          from pathlib import Path
+          import base64
+          import re
+
+          svg = Path('assets/profile.svg').read_text(encoding='utf-8')
+          match = re.search(r'data:image/jpeg;base64,([^\"]+)', svg)
+          if not match:
+              raise SystemExit('Embedded JPEG was not found in assets/profile.svg')
+
+          photo_path = Path('_site/assets/profile.jpg')
+          photo_path.write_bytes(base64.b64decode(match.group(1)))
+          if photo_path.stat().st_size < 1000:
+              raise SystemExit('Decoded profile photograph is unexpectedly small')
+
+          html_path = Path('_site/index.html')
+          html = html_path.read_text(encoding='utf-8')
+          html = html.replace('assets/profile.svg', 'assets/profile.jpg?v=20260805-jpg')
+          html_path.write_text(html, encoding='utf-8')
+          PY
+
           touch _site/.nojekyll
 
       - name: Configure Pages

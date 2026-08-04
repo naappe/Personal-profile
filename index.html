@@ -13,13 +13,14 @@
   try{
     const files=['assets/cv-part-00.b64','assets/cv-part-01.b64','assets/cv-part-02.b64','assets/cv-part-03.b64'];
     const parts=await Promise.all(files.map(async path=>{
-      const response=await fetch(path+'?v=20260805',{cache:'no-store'});
+      const response=await fetch(path+'?v=20260805-photo',{cache:'no-store'});
       if(!response.ok) throw new Error('Unable to load '+path);
       return (await response.text()).trim();
     }));
     const binary=atob(parts.join(''));
     const bytes=Uint8Array.from(binary,char=>char.charCodeAt(0));
-    const html=new TextDecoder('utf-8').decode(bytes);
+    const html=new TextDecoder('utf-8').decode(bytes)
+      .replace('assets/profile.svg','assets/profile.svg?v=20260805-photo');
     document.open();
     document.write(html);
     document.close();

@@ -24,13 +24,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare site
+      - name: Prepare direct CV site
         run: |
           set -euo pipefail
           rm -rf _site
           mkdir -p _site/assets
-          cp index.html _site/index.html
-          cp assets/cv-part-00.b64 assets/cv-part-01.b64 assets/cv-part-02.b64 assets/cv-part-03.b64 assets/profile.svg _site/assets/
+          cat \
+            assets/cv-part-00.b64 \
+            assets/cv-part-01.b64 \
+            assets/cv-part-02.b64 \
+            assets/cv-part-03.b64 \
+            | tr -d '\r\n ' \
+            | base64 --decode > _site/index.html
+          cp assets/profile.svg _site/assets/profile.svg
           touch _site/.nojekyll
 
       - name: Configure Pages

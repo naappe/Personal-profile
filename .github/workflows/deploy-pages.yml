@@ -28,10 +28,9 @@ jobs:
         run: |
           set -euo pipefail
           rm -rf _site
-          mkdir -p _site/v2
-          cp reference.html _site/index.html
-          cp v2/index.html v2/style.css _site/v2/
-          cp -R assets _site/assets
+          mkdir -p _site/assets
+          cp index.html _site/index.html
+          cp assets/cv-part-00.b64 assets/cv-part-01.b64 assets/cv-part-02.b64 assets/cv-part-03.b64 _site/assets/
           touch _site/.nojekyll
 
       - name: Configure Pages

@@ -20,13 +20,16 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Prepare direct CV site
+      - name: Prepare CV site
+        shell: bash
         run: |
           set -euo pipefail
+
           rm -rf _site
           mkdir -p _site/assets
 
@@ -38,26 +41,16 @@ jobs:
             | tr -d '\r\n ' \
             | base64 --decode > _site/index.html
 
-          python - <<'PY'
-          from pathlib import Path
-          import base64
-          import re
+          sed -n 's#.*data:image/jpeg;base64,\([^\"]*\).*#\1#p' \
+            assets/profile.svg \
+            | base64 --decode > _site/assets/profile.jpg
 
-          svg = Path('assets/profile.svg').read_text(encoding='utf-8')
-          match = re.search(r'data:image/jpeg;base64,([^\"]+)', svg)
-          if not match:
-              raise SystemExit('Embedded JPEG was not found in assets/profile.svg')
+          test -s _site/index.html
+          test -s _site/assets/profile.jpg
 
-          photo_path = Path('_site/assets/profile.jpg')
-          photo_path.write_bytes(base64.b64decode(match.group(1)))
-          if photo_path.stat().st_size < 1000:
-              raise SystemExit('Decoded profile photograph is unexpectedly small')
-
-          html_path = Path('_site/index.html')
-          html = html_path.read_text(encoding='utf-8')
-          html = html.replace('assets/profile.svg', 'assets/profile.jpg?v=20260805-jpg')
-          html_path.write_text(html, encoding='utf-8')
-          PY
+          sed -i \
+            's#assets/profile.svg#assets/profile.jpg?v=20260805-photo-fix#g' \
+            _site/index.html
 
           touch _site/.nojekyll
 

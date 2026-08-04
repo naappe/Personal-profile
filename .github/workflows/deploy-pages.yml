@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,89 +24,33 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Consolidate legacy CV files
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          if [[ -f assets/cv-part-00.b64 ]]; then
-            cat \
-              assets/cv-part-00.b64 \
-              assets/cv-part-01.b64 \
-              assets/cv-part-02.b64 \
-              assets/cv-part-03.b64 \
-              | tr -d '\r\n ' \
-              | base64 --decode > /tmp/index.html
-
-            python3 - <<'PY'
-          from pathlib import Path
-          import re
-
-          html_path = Path('/tmp/index.html')
-          svg_path = Path('assets/profile.svg')
-
-          html = html_path.read_text(encoding='utf-8')
-          svg = svg_path.read_text(encoding='utf-8')
-          match = re.search(r'data:image/jpeg;base64,([^\"<]+)', svg)
-          if not match:
-              raise SystemExit('Embedded JPEG was not found in assets/profile.svg')
-
-          photo = 'data:image/jpeg;base64,' + match.group(1)
-          html = html.replace('assets/profile.svg', photo)
-          html = html.replace(
-              '<title>Jenisha Adhikari | Hospitality CV</title>',
-              '<title>Jenisha Adhikari | Professional CV</title>'
-          )
-          html = html.replace(
-              "'jenisha-professional-cv-v3'",
-              "'jenisha-professional-cv-v4'"
-          )
-
-          marker = "const saved=localStorage.getItem('jenisha-professional-cv-v4');"
-          cleanup = "localStorage.removeItem('jenisha-professional-cv-v3');\n"
-          if marker in html and cleanup.strip() not in html:
-              html = html.replace(marker, cleanup + marker)
-
-          if html.count('data:image/jpeg;base64,') != 1:
-              raise SystemExit('The final CV must contain exactly one embedded photograph')
-          if 'assets/profile' in html:
-              raise SystemExit('A legacy external photo reference remains in the CV')
-
-          html_path.write_text(html, encoding='utf-8')
-          PY
-
-            mv /tmp/index.html index.html
-            git rm -f \
-              assets/cv-part-00.b64 \
-              assets/cv-part-01.b64 \
-              assets/cv-part-02.b64 \
-              assets/cv-part-03.b64 \
-              assets/profile.svg
-
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add index.html
-            git commit -m 'Consolidate CV into one self-contained HTML file'
-            git push origin HEAD:main
-          fi
-
-      - name: Validate final CV
+      - name: Validate self-contained CV
         shell: bash
         run: |
           set -euo pipefail
           test -s index.html
           grep -q 'data:image/jpeg;base64,' index.html
+          grep -q 'jenisha-professional-cv-v4' index.html
+
           if grep -q 'assets/profile' index.html; then
             echo 'External profile image reference remains.' >&2
             exit 1
           fi
+
           if grep -q 'cv-part-' index.html; then
             echo 'Legacy split-file loader remains.' >&2
             exit 1
           fi
+
+          python3 - <<'PY'
+          from pathlib import Path
+
+          html = Path('index.html').read_text(encoding='utf-8')
+          count = html.count('data:image/jpeg;base64,')
+          if count != 1:
+              raise SystemExit(f'Expected one embedded photograph, found {count}')
+          PY
 
       - name: Prepare Pages artifact
         shell: bash

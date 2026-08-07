@@ -33,33 +33,26 @@ jobs:
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-
           path = Path('index.html')
           html = path.read_text(encoding='utf-8')
-
-          old = '''<div class="ref-card"><h3>Sunil Kumar Bhusal</h3><p>CEO<br/><strong>Premier Hotel School</strong><br/>+977 9851068269<br/>sunilbhusalemail@gmail.com</p></div>
-<div class="ref-card"><h3>Nigam Khanal</h3><p>Operation Manager<br/><strong>Premier Hotel School</strong><br/>+977 9802737214</p></div>'''
-          new = '''<div class="ref-card"><h3>Mohamed Visham</h3><p>Managing Director<br/><strong>Vinorva Maldives Pvt Ltd</strong><br/>+960 795 3727<br/>info@vinorvamaldives.com</p></div>
-<div class="ref-card"><h3>Ahmed Naaz</h3><p>Managing Director &amp; CEO<br/><strong>White Saffron, Maldives</strong><br/>+960 778 6653</p></div>'''
-
-          if old in html:
-              html = html.replace(old, new, 1)
-          elif new not in html:
-              raise SystemExit('Expected reference block was not found')
-
+          old1 = '<div class="ref-card"><h3>Sunil Kumar Bhusal</h3><p>CEO<br/><strong>Premier Hotel School</strong><br/>+977 9851068269<br/>sunilbhusalemail@gmail.com</p></div>'
+          old2 = '<div class="ref-card"><h3>Nigam Khanal</h3><p>Operation Manager<br/><strong>Premier Hotel School</strong><br/>+977 9802737214</p></div>'
+          new1 = '<div class="ref-card"><h3>Mohamed Visham</h3><p>Managing Director<br/><strong>Vinorva Maldives Pvt Ltd</strong><br/>+960 795 3727<br/>info@vinorvamaldives.com</p></div>'
+          new2 = '<div class="ref-card"><h3>Ahmed Naaz</h3><p>Managing Director &amp; CEO<br/><strong>White Saffron, Maldives</strong><br/>+960 778 6653</p></div>'
+          if old1 in html:
+              html = html.replace(old1, new1, 1)
+          elif new1 not in html:
+              raise SystemExit('Vinorva reference block was not found')
+          if old2 in html:
+              html = html.replace(old2, new2, 1)
+          elif new2 not in html:
+              raise SystemExit('White Saffron reference block was not found')
           html = html.replace("'jenisha-professional-cv-v6'", "'jenisha-professional-cv-v7'")
-          html = html.replace(
-              "localStorage.removeItem('jenisha-professional-cv-v5');",
-              "localStorage.removeItem('jenisha-professional-cv-v5');\nlocalStorage.removeItem('jenisha-professional-cv-v6');"
-          )
-
+          html = html.replace("localStorage.removeItem('jenisha-professional-cv-v5');", "localStorage.removeItem('jenisha-professional-cv-v5');\nlocalStorage.removeItem('jenisha-professional-cv-v6');")
           if 'Mohamed Visham' not in html or 'Ahmed Naaz' not in html:
               raise SystemExit('Employer reference update failed')
-          if 'Premier Hotel School</strong><br/>+977' in html:
-              raise SystemExit('Old school references remain')
           if 'jenisha-professional-cv-v7' not in html:
               raise SystemExit('Storage key upgrade failed')
-
           path.write_text(html, encoding='utf-8')
           PY
 

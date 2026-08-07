@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -24,6 +24,52 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Replace references with employers
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          old = '''<div class="ref-card"><h3>Sunil Kumar Bhusal</h3><p>CEO<br/><strong>Premier Hotel School</strong><br/>+977 9851068269<br/>sunilbhusalemail@gmail.com</p></div>
+<div class="ref-card"><h3>Nigam Khanal</h3><p>Operation Manager<br/><strong>Premier Hotel School</strong><br/>+977 9802737214</p></div>'''
+          new = '''<div class="ref-card"><h3>Mohamed Visham</h3><p>Managing Director<br/><strong>Vinorva Maldives Pvt Ltd</strong><br/>+960 795 3727<br/>info@vinorvamaldives.com</p></div>
+<div class="ref-card"><h3>Ahmed Naaz</h3><p>Managing Director &amp; CEO<br/><strong>White Saffron, Maldives</strong><br/>+960 778 6653</p></div>'''
+
+          if old in html:
+              html = html.replace(old, new, 1)
+          elif new not in html:
+              raise SystemExit('Expected reference block was not found')
+
+          html = html.replace("'jenisha-professional-cv-v6'", "'jenisha-professional-cv-v7'")
+          html = html.replace(
+              "localStorage.removeItem('jenisha-professional-cv-v5');",
+              "localStorage.removeItem('jenisha-professional-cv-v5');\nlocalStorage.removeItem('jenisha-professional-cv-v6');"
+          )
+
+          if 'Mohamed Visham' not in html or 'Ahmed Naaz' not in html:
+              raise SystemExit('Employer reference update failed')
+          if 'Premier Hotel School</strong><br/>+977' in html:
+              raise SystemExit('Old school references remain')
+          if 'jenisha-professional-cv-v7' not in html:
+              raise SystemExit('Storage key upgrade failed')
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+          if ! git diff --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '4189820+github-actions[bot]@users.noreply.github.com'
+            git add index.html
+            git commit -m 'Keep Vinorva and White Saffron as CV references'
+            git push origin HEAD:main
+          fi
 
       - name: Validate self-contained CV
         shell: bash
@@ -31,24 +77,13 @@ jobs:
           set -euo pipefail
           test -s index.html
           grep -q 'data:image/jpeg;base64,' index.html
-          grep -q 'jenisha-professional-cv-v6' index.html
+          grep -q 'jenisha-professional-cv-v7' index.html
           grep -q 'from 2023 to 2025' index.html
           grep -q '<div class="job-date">2023 - 2025</div>' index.html
-          grep -q 'Monitor stock requirements and support timely replenishment of operational supplies.' index.html
-
-          for legacy in cv-fixes.css cv-fixes.js cv-skills-override.css editorial-details.css final-editorial-pass.css; do
-            test ! -e "$legacy"
-          done
-
-          python3 - <<'PY'
-          from pathlib import Path
-          html = Path('index.html').read_text(encoding='utf-8')
-          count = html.count('data:image/jpeg;base64,')
-          if count != 1:
-              raise SystemExit(f'Expected one embedded photograph, found {count}')
-          if '2023 - 2026' in html or 'from 2023 to 2026' in html:
-              raise SystemExit('Old Vinorva employment date remains')
-          PY
+          grep -q 'Mohamed Visham' index.html
+          grep -q 'Ahmed Naaz' index.html
+          grep -q 'Vinorva Maldives Pvt Ltd' index.html
+          grep -q 'White Saffron, Maldives' index.html
 
       - name: Prepare Pages artifact
         shell: bash

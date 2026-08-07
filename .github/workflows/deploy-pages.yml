@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,57 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Apply CV maintenance
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-
-          old = '''<article class="job"><div class="job-head"><div class="job-title">Purchasing Officer / Supervisor</div><div class="job-date">2026 - Present</div></div><div class="job-place">White Saffron, Maldives</div><ul><li>Coordinate daily purchasing requirements and communicate with suppliers.</li><li>Maintain purchase, pricing and delivery records for operational follow-up.</li><li>Check received items against orders and report discrepancies for correction.</li><li>Support staff coordination and supervise routine operational activities.</li></ul></article>'''
-          new = '''<article class="job"><div class="job-head"><div class="job-title">Purchasing Officer / Supervisor</div><div class="job-date">2026 - Present</div></div><div class="job-place">White Saffron, Maldives</div><ul><li>Coordinate daily purchasing requirements and maintain communication with suppliers.</li><li>Maintain accurate purchasing, pricing, delivery and supplier records.</li><li>Verify received goods against purchase orders and resolve quantity or quality discrepancies.</li><li>Monitor stock requirements and support timely replenishment of operational supplies.</li><li>Assist with supplier follow-up, price comparison and purchasing documentation.</li><li>Supervise routine staff activities and support smooth day-to-day operations.</li></ul></article>'''
-
-          if old in html:
-              html = html.replace(old, new, 1)
-          elif new not in html:
-              raise SystemExit('Expected White Saffron experience block was not found')
-
-          html = html.replace("'jenisha-professional-cv-v4'", "'jenisha-professional-cv-v5'")
-          html = html.replace(
-              "localStorage.removeItem('jenisha-professional-cv-v3');",
-              "localStorage.removeItem('jenisha-professional-cv-v3');\nlocalStorage.removeItem('jenisha-professional-cv-v4');"
-          )
-
-          if html.count('data:image/jpeg;base64,') != 1:
-              raise SystemExit('Expected exactly one embedded profile photograph')
-          if 'jenisha-professional-cv-v5' not in html:
-              raise SystemExit('Storage version upgrade failed')
-          if 'Monitor stock requirements and support timely replenishment of operational supplies.' not in html:
-              raise SystemExit('White Saffron experience update failed')
-
-          path.write_text(html, encoding='utf-8')
-          PY
-
-          rm -f \
-            cv-fixes.css \
-            cv-fixes.js \
-            cv-skills-override.css \
-            editorial-details.css \
-            final-editorial-pass.css
-
-          if ! git diff --quiet || ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '4189820+github-actions[bot]@users.noreply.github.com'
-            git add -A
-            git commit -m 'Update White Saffron experience and remove legacy files'
-            git push origin HEAD:main
-          fi
 
       - name: Validate self-contained CV
         shell: bash

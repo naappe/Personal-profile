@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -24,6 +24,45 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Correct Vinorva employment dates
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+          html = html.replace('from 2023 to 2026', 'from 2023 to 2025')
+          html = html.replace('<div class="job-date">2023 - 2026</div>', '<div class="job-date">2023 - 2025</div>')
+          html = html.replace("'jenisha-professional-cv-v5'", "'jenisha-professional-cv-v6'")
+          html = html.replace(
+              "localStorage.removeItem('jenisha-professional-cv-v4');",
+              "localStorage.removeItem('jenisha-professional-cv-v4');\nlocalStorage.removeItem('jenisha-professional-cv-v5');"
+          )
+
+          if 'from 2023 to 2025' not in html:
+              raise SystemExit('Profile Vinorva date correction failed')
+          if '<div class="job-date">2023 - 2025</div>' not in html:
+              raise SystemExit('Experience Vinorva date correction failed')
+          if 'jenisha-professional-cv-v6' not in html:
+              raise SystemExit('Storage version upgrade failed')
+          if html.count('data:image/jpeg;base64,') != 1:
+              raise SystemExit('Expected exactly one embedded profile photograph')
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+          if ! git diff --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '4189820+github-actions[bot]@users.noreply.github.com'
+            git add index.html
+            git commit -m 'Correct Vinorva employment period to 2023-2025'
+            git push origin HEAD:main
+          fi
 
       - name: Validate self-contained CV
         shell: bash
@@ -31,19 +70,18 @@ jobs:
           set -euo pipefail
           test -s index.html
           grep -q 'data:image/jpeg;base64,' index.html
-          grep -q 'jenisha-professional-cv-v5' index.html
+          grep -q 'jenisha-professional-cv-v6' index.html
+          grep -q 'from 2023 to 2025' index.html
+          grep -q '<div class="job-date">2023 - 2025</div>' index.html
           grep -q 'Monitor stock requirements and support timely replenishment of operational supplies.' index.html
-
-          for legacy in cv-fixes.css cv-fixes.js cv-skills-override.css editorial-details.css final-editorial-pass.css; do
-            test ! -e "$legacy"
-          done
 
           python3 - <<'PY'
           from pathlib import Path
           html = Path('index.html').read_text(encoding='utf-8')
-          count = html.count('data:image/jpeg;base64,')
-          if count != 1:
-              raise SystemExit(f'Expected one embedded photograph, found {count}')
+          if html.count('data:image/jpeg;base64,') != 1:
+              raise SystemExit('Expected exactly one embedded photograph')
+          if '2023 - 2026' in html or 'from 2023 to 2026' in html:
+              raise SystemExit('Old Vinorva date remains')
           PY
 
       - name: Prepare Pages artifact

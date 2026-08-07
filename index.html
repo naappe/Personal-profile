@@ -179,8 +179,8 @@
 <section class="section red"><div class="band red"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><path d="M18 42c8-15 20-24 28-22-2 8-11 20-28 22Z"></path><path d="M20 42c9-2 18-8 26-22M24 26c-6-6-5-14-2-18 7 4 10 10 8 17"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">Training</h2><p class="section-sub">Additional practical preparation for hospitality and service.</p><ul class="clean-list"><li>Completed three days of mixology training.</li><li>Completed practical work across college departments.</li><li>Practised buffet preparation, mise en place and service-area readiness.</li><li>Developed food-and-beverage product knowledge and guest-service techniques.</li></ul></div></section>
 <section class="section gold"><div class="band gold"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><circle cx="32" cy="32" r="10"></circle><path d="M32 4v10M32 50v10M4 32h10M50 32h10M12 12l7 7M45 45l7 7M52 12l-7 7M19 45l-7 7"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">Professional Strengths</h2><p class="section-sub">Professional qualities supporting dependable day-to-day performance.</p><div class="skills"><div class="skill">Responsible and dependable</div><div class="skill">Clear communication</div><div class="skill">Attention to detail</div><div class="skill">Calm under pressure</div><div class="skill">Team collaboration</div><div class="skill">Organised workflow</div><div class="skill">Quick learning</div><div class="skill">Professional presentation</div></div></div></section>
 <section class="section charcoal"><div class="band charcoal"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><path d="M16 18h32v28H16z"></path><path d="M22 12h20v6H22zM22 26h20M22 34h14"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">References</h2><p class="section-sub">Professional contacts available for employment verification.</p><div class="reference">
-<div class="ref-card"><h3>Sunil Kumar Bhusal</h3><p>CEO<br/><strong>Premier Hotel School</strong><br/>+977 9851068269<br/>sunilbhusalemail@gmail.com</p></div>
-<div class="ref-card"><h3>Nigam Khanal</h3><p>Operation Manager<br/><strong>Premier Hotel School</strong><br/>+977 9802737214</p></div>
+<div class="ref-card"><h3>Mohamed Visham</h3><p>Managing Director<br/><strong>Vinorva Maldives Pvt Ltd</strong><br/>+960 795 3727<br/>info@vinorvamaldives.com</p></div>
+<div class="ref-card"><h3>Ahmed Naaz</h3><p>Managing Director &amp; CEO<br/><strong>White Saffron, Maldives</strong><br/>+960 778 6653</p></div>
 </div></div></section>
 </div>
 <footer class="footer">RESPONSIBILITY | ACCURACY | CARE</footer>
@@ -204,13 +204,14 @@ window.addEventListener('resize',fitPreview,{passive:true});
 window.addEventListener('orientationchange',()=>setTimeout(fitPreview,180));
 function setEditing(v){editing=v;doc.querySelectorAll('h1,h2,h3,p,li,.side-name,.side-copy,.title,.tagline,.job-title,.job-date,.job-place,.skill,.meta,.contact-row span,.footer').forEach(e=>e.contentEditable=v?'true':'false');document.getElementById('editBtn').textContent=v?'Finish editing':'Enable editing';status.textContent=v?'Editing enabled':'White Saffron CV theme';}
 document.getElementById('editBtn').onclick=()=>setEditing(!editing);
-document.getElementById('saveBtn').onclick=()=>{localStorage.setItem('jenisha-professional-cv-v6',doc.innerHTML);status.textContent='Draft saved in this browser';};
+document.getElementById('saveBtn').onclick=()=>{localStorage.setItem('jenisha-professional-cv-v7',doc.innerHTML);status.textContent='Draft saved in this browser';};
 document.getElementById('printBtn').onclick=()=>{setEditing(false);window.print();};
-document.getElementById('resetBtn').onclick=()=>{localStorage.removeItem('jenisha-professional-cv-v6');location.reload();};
+document.getElementById('resetBtn').onclick=()=>{localStorage.removeItem('jenisha-professional-cv-v7');location.reload();};
 localStorage.removeItem('jenisha-professional-cv-v3');
 localStorage.removeItem('jenisha-professional-cv-v4');
 localStorage.removeItem('jenisha-professional-cv-v5');
-const saved=localStorage.getItem('jenisha-professional-cv-v6');if(saved){doc.innerHTML=saved;status.textContent='Saved draft restored';}requestAnimationFrame(fitPreview);
+localStorage.removeItem('jenisha-professional-cv-v6');
+const saved=localStorage.getItem('jenisha-professional-cv-v7');if(saved){doc.innerHTML=saved;status.textContent='Saved draft restored';}requestAnimationFrame(fitPreview);
 </script>
 </body>
 </html>

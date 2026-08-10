@@ -112,9 +112,10 @@
 
 .footer{font-size:1.8mm;letter-spacing:1mm;white-space:nowrap;line-height:1;}
 @media print{.footer{font-size:1.8mm;letter-spacing:1mm;white-space:nowrap;line-height:1;}}
-</style>
+.site-nav{background:#f8f3ea;border-bottom:1px solid #c9a86a80;box-shadow:0 2px 10px #0000000b}.site-nav-inner{max-width:1120px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.site-brand{font-family:Georgia,'Times New Roman',serif;font-size:15px;letter-spacing:1.2px;color:var(--green);text-decoration:none;text-transform:uppercase;white-space:nowrap}.site-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.site-links a{font-size:12px;font-weight:700;color:var(--charcoal);text-decoration:none;padding:7px 10px;border-radius:999px}.site-links a:hover,.site-links a.active{background:var(--green);color:#fff}@media(max-width:700px){.site-nav-inner{align-items:flex-start;flex-direction:column}.site-links{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.site-links a{white-space:nowrap}}@media print{.site-nav{display:none!important}}</style>
 </head>
 <body>
+<nav class="site-nav" aria-label="Website navigation"><div class="site-nav-inner"><a class="site-brand" href="./">Jenisha Adhikari</a><div class="site-links"><a class="active" href="./">CV</a><a href="documents.html">Documents</a><a href="documents.html#employment">Employment</a><a href="documents.html#grade12">Grade 12</a><a href="documents.html#grade10">Grade 10</a><a href="mailto:jennymv2023@icloud.com">Contact</a></div></div></nav>
 <div class="toolbar">
 <button class="primary" id="editBtn">Enable editing</button>
 <button id="saveBtn">Save draft</button>
@@ -178,10 +179,7 @@
 </div></section>
 <section class="section red"><div class="band red"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><path d="M18 42c8-15 20-24 28-22-2 8-11 20-28 22Z"></path><path d="M20 42c9-2 18-8 26-22M24 26c-6-6-5-14-2-18 7 4 10 10 8 17"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">Training</h2><p class="section-sub">Additional practical preparation for hospitality and service.</p><ul class="clean-list"><li>Completed three days of mixology training.</li><li>Completed practical work across college departments.</li><li>Practised buffet preparation, mise en place and service-area readiness.</li><li>Developed food-and-beverage product knowledge and guest-service techniques.</li></ul></div></section>
 <section class="section gold"><div class="band gold"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><circle cx="32" cy="32" r="10"></circle><path d="M32 4v10M32 50v10M4 32h10M50 32h10M12 12l7 7M45 45l7 7M52 12l-7 7M19 45l-7 7"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">Professional Strengths</h2><p class="section-sub">Professional qualities supporting dependable day-to-day performance.</p><div class="skills"><div class="skill">Responsible and dependable</div><div class="skill">Clear communication</div><div class="skill">Attention to detail</div><div class="skill">Calm under pressure</div><div class="skill">Team collaboration</div><div class="skill">Organised workflow</div><div class="skill">Quick learning</div><div class="skill">Professional presentation</div></div></div></section>
-<section class="section charcoal"><div class="band charcoal"><svg fill="none" stroke="currentColor" stroke-width="2" viewbox="0 0 64 64"><path d="M16 18h32v28H16z"></path><path d="M22 12h20v6H22zM22 26h20M22 34h14"></path></svg><span class="diamond"></span></div><div class="section-content"><h2 class="section-title">References</h2><p class="section-sub">Professional contacts available for employment verification.</p><div class="reference">
-<div class="ref-card"><h3>Mohamed Visham</h3><p>Managing Director<br/><strong>Vinorva Maldives Pvt Ltd</strong><br/>+960 795 3727<br/>info@vinorvamaldives.com</p></div>
-<div class="ref-card"><h3>Ahmed Naaz</h3><p>Managing Director &amp; CEO<br/><strong>White Saffron, Maldives</strong><br/>+960 778 6653</p></div>
-</div></div></section>
+
 </div>
 <footer class="footer">RESPONSIBILITY | ACCURACY | CARE</footer>
 </section>
@@ -204,14 +202,15 @@ window.addEventListener('resize',fitPreview,{passive:true});
 window.addEventListener('orientationchange',()=>setTimeout(fitPreview,180));
 function setEditing(v){editing=v;doc.querySelectorAll('h1,h2,h3,p,li,.side-name,.side-copy,.title,.tagline,.job-title,.job-date,.job-place,.skill,.meta,.contact-row span,.footer').forEach(e=>e.contentEditable=v?'true':'false');document.getElementById('editBtn').textContent=v?'Finish editing':'Enable editing';status.textContent=v?'Editing enabled':'White Saffron CV theme';}
 document.getElementById('editBtn').onclick=()=>setEditing(!editing);
-document.getElementById('saveBtn').onclick=()=>{localStorage.setItem('jenisha-professional-cv-v7',doc.innerHTML);status.textContent='Draft saved in this browser';};
+document.getElementById('saveBtn').onclick=()=>{localStorage.setItem('jenisha-professional-cv-v8',doc.innerHTML);status.textContent='Draft saved in this browser';};
 document.getElementById('printBtn').onclick=()=>{setEditing(false);window.print();};
-document.getElementById('resetBtn').onclick=()=>{localStorage.removeItem('jenisha-professional-cv-v7');location.reload();};
+document.getElementById('resetBtn').onclick=()=>{localStorage.removeItem('jenisha-professional-cv-v8');location.reload();};
 localStorage.removeItem('jenisha-professional-cv-v3');
 localStorage.removeItem('jenisha-professional-cv-v4');
 localStorage.removeItem('jenisha-professional-cv-v5');
 localStorage.removeItem('jenisha-professional-cv-v6');
-const saved=localStorage.getItem('jenisha-professional-cv-v7');if(saved){doc.innerHTML=saved;status.textContent='Saved draft restored';}requestAnimationFrame(fitPreview);
+localStorage.removeItem('jenisha-professional-cv-v7');
+const saved=localStorage.getItem('jenisha-professional-cv-v8');if(saved){doc.innerHTML=saved;status.textContent='Saved draft restored';}requestAnimationFrame(fitPreview);
 </script>
 </body>
 </html>

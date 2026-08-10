@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,65 +24,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Apply final CV and navigation corrections
-        shell: bash
-        run: |
-          set -euo pipefail
-          python3 - <<'PY'
-          from pathlib import Path
-
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-
-          # Remove the entire employer References section from page 2.
-          marker = '<h2 class="section-title">References</h2>'
-          if marker in html:
-              start = html.rfind('<section class="section charcoal">', 0, html.index(marker))
-              end = html.find('</section>', html.index(marker))
-              if start < 0 or end < 0:
-                  raise SystemExit('References section boundaries not found')
-              html = html[:start] + html[end + len('</section>'):]
-
-          # Add a screen-only website navigation bar. Print/PDF layout remains unchanged.
-          nav_css = ".site-nav{background:#f8f3ea;border-bottom:1px solid #c9a86a80;box-shadow:0 2px 10px #0000000b}.site-nav-inner{max-width:1120px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}.site-brand{font-family:Georgia,'Times New Roman',serif;font-size:15px;letter-spacing:1.2px;color:var(--green);text-decoration:none;text-transform:uppercase;white-space:nowrap}.site-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.site-links a{font-size:12px;font-weight:700;color:var(--charcoal);text-decoration:none;padding:7px 10px;border-radius:999px}.site-links a:hover,.site-links a.active{background:var(--green);color:#fff}@media(max-width:700px){.site-nav-inner{align-items:flex-start;flex-direction:column}.site-links{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.site-links a{white-space:nowrap}}@media print{.site-nav{display:none!important}}"
-          if '.site-nav{' not in html:
-              html = html.replace('</style>', nav_css + '</style>', 1)
-
-          nav_html = '<nav class="site-nav" aria-label="Website navigation"><div class="site-nav-inner"><a class="site-brand" href="./">Jenisha Adhikari</a><div class="site-links"><a class="active" href="./">CV</a><a href="documents.html">Documents</a><a href="documents.html#employment">Employment</a><a href="documents.html#grade12">Grade 12</a><a href="documents.html#grade10">Grade 10</a><a href="mailto:jennymv2023@icloud.com">Contact</a></div></div></nav>'
-          if 'aria-label="Website navigation"' not in html:
-              html = html.replace('<body>', '<body>\n' + nav_html, 1)
-
-          # Clear older browser-saved CV HTML that can reinsert the deleted References section.
-          html = html.replace("'jenisha-professional-cv-v7'", "'jenisha-professional-cv-v8'")
-          if "localStorage.removeItem('jenisha-professional-cv-v7');" not in html:
-              marker6 = "localStorage.removeItem('jenisha-professional-cv-v6');"
-              if marker6 in html:
-                  html = html.replace(marker6, marker6 + "\nlocalStorage.removeItem('jenisha-professional-cv-v7');", 1)
-
-          if '<h2 class="section-title">References</h2>' in html:
-              raise SystemExit('References heading remains')
-          if 'Mohamed Visham' in html or 'Ahmed Naaz' in html:
-              raise SystemExit('Reference contacts remain')
-          if 'documents.html#employment' not in html:
-              raise SystemExit('Documents navigation missing')
-          if 'jenisha-professional-cv-v8' not in html:
-              raise SystemExit('Browser storage version not upgraded')
-          if '2023 - 2026' in html or 'from 2023 to 2026' in html:
-              raise SystemExit('Old Vinorva date remains')
-
-          path.write_text(html, encoding='utf-8')
-          PY
-
-          if ! git diff --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '4189820+github-actions[bot]@users.noreply.github.com'
-            git add index.html
-            git commit -m 'Remove references and organize document navigation'
-            git push origin HEAD:main
-          fi
 
       - name: Validate website
         shell: bash

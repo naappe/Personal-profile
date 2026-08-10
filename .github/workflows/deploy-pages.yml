@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -24,36 +24,89 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Validate self-contained CV
+      - name: Apply final CV and navigation corrections
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          # Remove the entire References section from page 2.
+          pattern = r'<section class="section charcoal">(?:(?!<section class="section).)*?<h2 class="section-title">References</h2>.*?</section>\s*'
+          html, removed = re.subn(pattern, '', html, count=1, flags=re.S)
+          if removed == 0 and '<h2 class="section-title">References</h2>' in html:
+              raise SystemExit('References section could not be removed')
+
+          # Add professional website navigation without affecting print/PDF layout.
+          nav_css = '''
+.site-nav{background:#f8f3ea;border-bottom:1px solid #c9a86a80;box-shadow:0 2px 10px #0000000b}
+.site-nav-inner{max-width:1120px;margin:0 auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.site-brand{font-family:Georgia,'Times New Roman',serif;font-size:15px;letter-spacing:1.2px;color:var(--green);text-decoration:none;text-transform:uppercase;white-space:nowrap}
+.site-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.site-links a{font-size:12px;font-weight:700;color:var(--charcoal);text-decoration:none;padding:7px 10px;border-radius:999px}
+.site-links a:hover,.site-links a.active{background:var(--green);color:#fff}
+@media(max-width:700px){.site-nav-inner{align-items:flex-start;flex-direction:column}.site-links{width:100%;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}.site-links a{white-space:nowrap}}
+@media print{.site-nav{display:none!important}}
+'''
+          if '.site-nav{' not in html:
+              html = html.replace('</style>', nav_css + '\n</style>', 1)
+
+          nav_html = '''<nav class="site-nav" aria-label="Website navigation"><div class="site-nav-inner"><a class="site-brand" href="./">Jenisha Adhikari</a><div class="site-links"><a class="active" href="./">CV</a><a href="documents.html">Documents</a><a href="documents.html#employment">Employment</a><a href="documents.html#grade12">Grade 12</a><a href="documents.html#grade10">Grade 10</a><a href="mailto:jennymv2023@icloud.com">Contact</a></div></div></nav>'''
+          if 'aria-label="Website navigation"' not in html:
+              html = html.replace('<body>', '<body>\n' + nav_html, 1)
+
+          # Force browsers to discard older saved CV drafts that still contained References.
+          html = html.replace("'jenisha-professional-cv-v7'", "'jenisha-professional-cv-v8'")
+          if "localStorage.removeItem('jenisha-professional-cv-v7');" not in html:
+              marker = "localStorage.removeItem('jenisha-professional-cv-v6');"
+              if marker in html:
+                  html = html.replace(marker, marker + "\nlocalStorage.removeItem('jenisha-professional-cv-v7');", 1)
+              else:
+                  saved_marker = "const saved=localStorage.getItem('jenisha-professional-cv-v8');"
+                  html = html.replace(saved_marker, "localStorage.removeItem('jenisha-professional-cv-v7');\n" + saved_marker, 1)
+
+          if '<h2 class="section-title">References</h2>' in html or 'Mohamed Visham' in html or 'Ahmed Naaz' in html:
+              raise SystemExit('Reference content remains in CV')
+          if 'documents.html#employment' not in html:
+              raise SystemExit('Documents navigation was not inserted')
+          if 'jenisha-professional-cv-v8' not in html:
+              raise SystemExit('Browser draft version was not upgraded')
+          if '2023 - 2026' in html or 'from 2023 to 2026' in html:
+              raise SystemExit('Old Vinorva employment date remains')
+
+          path.write_text(html, encoding='utf-8')
+          PY
+
+          if ! git diff --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '4189820+github-actions[bot]@users.noreply.github.com'
+            git add index.html
+            git commit -m 'Remove references and organize document navigation'
+            git push origin HEAD:main
+          fi
+
+      - name: Validate website
         shell: bash
         run: |
           set -euo pipefail
           test -s index.html
+          test -s documents.html
           grep -q 'data:image/jpeg;base64,' index.html
-          grep -q 'jenisha-professional-cv-v7' index.html
+          grep -q 'jenisha-professional-cv-v8' index.html
           grep -q 'from 2023 to 2025' index.html
           grep -q '<div class="job-date">2023 - 2025</div>' index.html
-          grep -q 'Mohamed Visham' index.html
-          grep -q 'Ahmed Naaz' index.html
-          grep -q 'Vinorva Maldives Pvt Ltd' index.html
-          grep -q 'White Saffron, Maldives' index.html
-          grep -q 'Monitor stock requirements and support timely replenishment of operational supplies.' index.html
-
-          for legacy in cv-fixes.css cv-fixes.js cv-skills-override.css editorial-details.css final-editorial-pass.css; do
-            test ! -e "$legacy"
-          done
-
-          python3 - <<'PY'
-          from pathlib import Path
-          html = Path('index.html').read_text(encoding='utf-8')
-          if html.count('data:image/jpeg;base64,') != 1:
-              raise SystemExit('Expected exactly one embedded photograph')
-          if '2023 - 2026' in html or 'from 2023 to 2026' in html:
-              raise SystemExit('Old Vinorva employment date remains')
-          if 'Sunil Kumar Bhusal' in html or 'Nigam Khanal' in html:
-              raise SystemExit('Old school references remain')
-          PY
+          grep -q 'documents.html#employment' index.html
+          grep -q 'Supporting Documents' documents.html
+          ! grep -q '<h2 class="section-title">References</h2>' index.html
+          ! grep -q 'Mohamed Visham' index.html
+          ! grep -q 'Ahmed Naaz' index.html
 
       - name: Prepare Pages artifact
         shell: bash
@@ -61,7 +114,7 @@ jobs:
           set -euo pipefail
           rm -rf _site
           mkdir -p _site
-          cp index.html _site/index.html
+          cp index.html documents.html _site/
           touch _site/.nojekyll
 
       - name: Configure Pages

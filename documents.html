@@ -159,5 +159,6 @@ function syncNav(){document.querySelectorAll('[data-nav]').forEach(b=>b.classLis
 document.getElementById('sort').addEventListener('change',e=>{currentSort=e.target.value;render()});
 document.getElementById('toggleView').onclick=e=>{const grids=[...document.querySelectorAll('.grid')];const toList=!grids.some(g=>g.classList.contains('list'));grids.forEach(g=>g.classList.toggle('list',toList));e.target.textContent=toList?'List':'Grid'};
 </script>
+<!-- deployment-refresh: remove-immigration-card -->
 </body>
 </html>

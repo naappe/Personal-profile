@@ -7,7 +7,7 @@
 <style>
 :root{--bg:#f5f2ec;--card:#fffdf9;--ink:#25221e;--muted:#6f685f;--gold:#c58b26;--green:#1f5a35;--green2:#eaf4ee;--red:#c53333;--red2:#fdeaea;--line:#ded5c8;--shadow:0 10px 28px rgba(65,47,24,.06)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:20;background:#1f1d19;color:#fff}.bar{max-width:1180px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{font:600 17px Georgia,serif;letter-spacing:.1em}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a{padding:8px 12px;border-radius:999px;font-size:13px}.nav a.active,.nav a:hover{background:var(--gold)}.docnav-wrap{position:sticky;top:58px;z-index:15;background:rgba(245,242,236,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.docnav{max-width:1180px;margin:auto;padding:10px 22px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.docnav::-webkit-scrollbar{display:none}.docnav button{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#4f493f;border-radius:999px;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:700}.docnav button.active,.docnav button:hover{background:var(--green);border-color:var(--green);color:#fff}
+header{position:sticky;top:0;z-index:20;background:#1f1d19;color:#fff}.bar{max-width:1180px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{font:600 18px Georgia,serif;letter-spacing:.12em}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a{padding:8px 14px;border-radius:999px;font-size:13px;font-weight:700}.nav a.active,.nav a:hover{background:var(--gold)}.docnav-wrap{position:sticky;top:58px;z-index:15;background:rgba(245,242,236,.96);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.docnav{max-width:1180px;margin:auto;padding:10px 22px;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none}.docnav::-webkit-scrollbar{display:none}.docnav button{white-space:nowrap;border:1px solid var(--line);background:#fff;color:#4f493f;border-radius:999px;padding:8px 12px;cursor:pointer;font-size:12px;font-weight:700}.docnav button.active,.docnav button:hover{background:var(--green);border-color:var(--green);color:#fff}
 main{max-width:1180px;margin:auto;padding:30px 22px 60px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:center}.hero-title{display:flex;gap:16px;align-items:center}.hero-icon{width:62px;height:62px;border-radius:18px;background:#f5e8cf;display:grid;place-items:center;font-size:28px;color:#865b12}.hero h1{margin:0;font:600 31px Georgia,serif}.hero p{margin:5px 0 0;color:var(--muted)}.secure{background:#edf7ef;border:1px solid #cfe6d5;border-radius:14px;padding:12px 15px;color:#265f39;font-size:13px;line-height:1.35}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}.stat b{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
 .toolbar{display:grid;grid-template-columns:minmax(0,1fr) 180px 160px auto;gap:10px;margin:20px 0}.toolbar input,.toolbar select,.view-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 13px}.view-btn{cursor:pointer;font-weight:700;color:var(--green)}
@@ -20,13 +20,13 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 </style>
 </head>
 <body>
-<header><div class="bar"><a class="brand" href="./">JA / JENISHA ADHIKARI</a><nav class="nav"><a href="./">CV</a><a class="active" href="documents.html">Documents</a><a href="./#experience">Employment</a><a href="./#education">Education</a></nav></div></header>
+<header><div class="bar"><a class="brand" href="./">JENISHA ADHIKARI</a><nav class="nav"><a href="./">CV</a><a class="active" href="documents.html">Documents</a></nav></div></header>
 <div class="docnav-wrap"><nav class="docnav" aria-label="Document groups"><button class="active" data-nav="all">All</button><button data-nav="identity">Immigration</button><button data-nav="career">Employment</button><button data-nav="education">Education</button><button data-nav="assets">Photos & ID</button><button data-nav="other">Other</button></nav></div>
 
 <main>
 <section class="hero">
-<div class="hero-title"><div class="hero-icon">▱</div><div><h1>Document Center</h1><p>Upload, manage and view important documents in one place.</p></div></div>
-<div class="secure"><strong>Private browser storage</strong><br>Files stay on this device until cloud sync is added.</div>
+<div class="hero-title"><div class="hero-icon">▱</div><div><h1>Document Center</h1><p>Organised records for immigration, employment, education and supporting documents.</p></div></div>
+<div class="secure"><strong>Secure local storage</strong><br>Uploaded files remain on this device and are not published publicly.</div>
 </section>
 
 <section class="stats">
@@ -38,16 +38,16 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 
 <div class="toolbar">
 <input id="search" placeholder="Search documents..." aria-label="Search documents">
-<select id="filter"><option value="all">All document groups</option><option value="identity">Immigration Documents</option><option value="career">Career & Employment</option><option value="education">Education</option><option value="assets">Photos & ID Assets</option><option value="other">Other</option><option value="uploaded">Uploaded only</option><option value="missing">Not uploaded</option></select>
-<select id="sort"><option value="logical">Logical order</option><option value="name">Sort by Name</option><option value="status">Sort by Status</option></select>
+<select id="filter"><option value="all">All sections</option><option value="identity">Immigration Documents</option><option value="career">Career & Employment</option><option value="education">Education</option><option value="assets">Photos & ID Assets</option><option value="other">Other</option><option value="uploaded">Uploaded only</option><option value="missing">Not uploaded</option></select>
+<select id="sort"><option value="logical">Recommended order</option><option value="name">Sort by Name</option><option value="status">Sort by Status</option></select>
 <button class="view-btn" id="toggleView">Grid</button>
 </div>
 
 <section id="docs"></section>
 
-<div class="note"><strong>Current storage:</strong> upload buttons are fully functional and files are saved in this browser using IndexedDB. They are not published to GitHub. To make uploads sync securely across devices into Google Drive, the next step is to add authenticated cloud upload rather than placing Google credentials in this public page.</div>
+<div class="note"><strong>Privacy:</strong> Documents uploaded here are stored locally in this browser. Sensitive identity and immigration files are not published to the public website.</div>
 
-<footer>Jenisha Adhikari · Professional CV · Document Center</footer>
+<footer>Jenisha Adhikari · Professional Document Center</footer>
 </main>
 
 <div class="modal" id="metaModal">

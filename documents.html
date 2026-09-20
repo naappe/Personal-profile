@@ -30,10 +30,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 </section>
 
 <section class="stats">
-<div class="stat"><b>7</b><span>Document types</span></div>
+<div class="stat"><b>8</b><span>Document types</span></div>
 <div class="stat"><b id="uploadedCount">0</b><span>Files uploaded</span></div>
 <div class="stat"><b id="expiryCount">0</b><span>Expiring soon</span></div>
-<div class="stat"><b id="missingCount">7</b><span>Missing documents</span></div>
+<div class="stat"><b id="missingCount">8</b><span>Missing documents</span></div>
 </section>
 
 <div class="toolbar">
@@ -65,7 +65,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 
 <script>
 const groups=[
-{id:'identity',name:'Immigration Documents',note:'Passport, work permit, visa, immigration approvals and medical reports'},
+{id:'identity',name:'Immigration Documents',note:'Passport, work permit, immigration records and medical report'},
 {id:'career',name:'Employment',note:'Employment and work-history evidence'},
 {id:'education',name:'Education',note:'Academic qualifications only'},
 {id:'assets',name:'Photos & ID Assets',note:'Reusable photo and non-passport ID assets'},
@@ -74,11 +74,12 @@ const groups=[
 const categories=[
 {id:'passport',group:'identity',order:1,name:'Passport',icon:'▣',desc:'Passport bio page, renewal pages and passport-only records kept under Immigration Documents.'},
 {id:'workpermit',group:'identity',order:2,name:'Work Permit',icon:'▤',desc:'Work permit card, permit approval and renewal records kept under Immigration Documents.'},
-{id:'immigration',group:'identity',order:3,name:'Immigration',icon:'✈',desc:'Visa, entry permit, immigration approvals, immigration receipts, medical fitness reports and other documents required for immigration processing.'},
-{id:'employment',group:'career',order:4,name:'Employment',icon:'▦',desc:'Appointment letters, employment certificates, experience letters, references, contracts and transfer letters.'},
-{id:'education',group:'education',order:5,name:'Education',icon:'◇',desc:'School certificates, transcripts, mark sheets, migration certificates and academic qualifications.'},
-{id:'photos',group:'assets',order:6,name:'Photos & Other ID',icon:'◉',desc:'Passport-size photos and non-passport identity assets. Passport scans stay under Immigration Documents > Passport.'},
-{id:'other',group:'other',order:7,name:'Other Supporting Documents',icon:'＋',desc:'Only documents that do not logically belong in any category above.'}
+{id:'immigration',group:'identity',order:3,name:'Immigration',icon:'✈',desc:'Visa, entry permit, immigration approvals, immigration receipts and related immigration records.'},
+{id:'medical',group:'identity',order:4,name:'Medical Report',icon:'✚',desc:'Medical fitness reports, screening results and health-clearance documents required for immigration processing.'},
+{id:'employment',group:'career',order:5,name:'Employment',icon:'▦',desc:'Appointment letters, employment certificates, experience letters, references, contracts and transfer letters.'},
+{id:'education',group:'education',order:6,name:'Education',icon:'◇',desc:'School certificates, transcripts, mark sheets, migration certificates and academic qualifications.'},
+{id:'photos',group:'assets',order:7,name:'Photos & Other ID',icon:'◉',desc:'Passport-size photos and non-passport identity assets. Passport scans stay under Immigration Documents > Passport.'},
+{id:'other',group:'other',order:8,name:'Other Supporting Documents',icon:'＋',desc:'Only documents that do not logically belong in any category above.'}
 ];
 let db,records={},pending=null,currentFilter='all',currentSort='logical';
 const docs=document.getElementById('docs');

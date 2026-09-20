@@ -1,37 +1,146 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Jenisha Adhikari | Document Center</title>
 <style>
-:root{--bg:#f4f1eb;--card:#fffdf9;--ink:#26231f;--muted:#746d64;--gold:#b7832f;--green:#29421f;--wine:#771f22;--line:#ded5c7}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}a{text-decoration:none;color:inherit}
-header{position:sticky;top:0;z-index:10;background:#1f1d19;color:#fff}.bar{max-width:1180px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:20px}.brand{font:600 17px Georgia,serif;letter-spacing:.1em}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a{padding:8px 12px;border-radius:999px;font-size:13px}.nav a.active,.nav a:hover{background:var(--gold)}
-main{max-width:1180px;margin:auto;padding:34px 22px 60px}.hero{display:flex;justify-content:space-between;align-items:end;gap:24px}.hero h1{margin:0;font:400 40px Georgia,serif;color:var(--green)}.hero p{color:var(--muted);max-width:650px;line-height:1.6}.privacy{font-size:12px;color:var(--muted);padding:9px 12px;background:#fff;border:1px solid var(--line);border-radius:10px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:25px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}.stat b{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
-.tools{display:flex;justify-content:space-between;gap:12px;align-items:center;margin:22px 0}.search{width:min(420px,100%);padding:12px 14px;border:1px solid var(--line);border-radius:12px;background:white;font:inherit}.drive{padding:11px 14px;border-radius:10px;background:var(--green);color:white;font-size:13px;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;display:flex;flex-direction:column;min-height:205px;box-shadow:0 8px 24px #00000008}.icon{width:42px;height:42px;border-radius:12px;background:#29421f0d;display:grid;place-items:center;font-size:21px}.doc h2{font:600 19px Georgia,serif;margin:14px 0 6px}.doc p{margin:0;color:var(--muted);font-size:13px;line-height:1.5;flex:1}.foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:17px}.status{font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;padding:6px 8px;border-radius:999px;background:#eee;color:#655}.pending{background:#b7832f14;color:#8a601b}.open{font-size:12px;font-weight:700;color:var(--green);border:1px solid #bfc9ba;padding:7px 10px;border-radius:8px}
-.note{margin-top:25px;border-left:3px solid var(--gold);background:#fffaf3;padding:14px 16px;color:#625b52;font-size:13px;line-height:1.55}
-footer{text-align:center;color:var(--muted);font-size:12px;padding-top:35px}
-@media(max-width:850px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.hero{align-items:flex-start;flex-direction:column}.bar{align-items:flex-start;flex-direction:column}.hero h1{font-size:32px}}
-@media(max-width:540px){.grid{grid-template-columns:1fr}.tools{align-items:stretch;flex-direction:column}.stats{grid-template-columns:repeat(2,1fr)}}
-</style></head><body>
-<header><div class="bar"><a class="brand" href="./">JA / JENISHA ADHIKARI</a><nav class="nav"><a href="./">CV</a><a class="active" href="documents.html">Documents</a><a href="documents.html#employment">Employment</a><a href="./#education">Education</a></nav></div></header>
-<main><section class="hero"><div><h1>Document Center</h1><p>A single organised place for Jenisha's professional, employment, education and personal supporting records.</p></div><div class="privacy">Private identity files are not published on this public website.</div></section>
-<section class="stats"><div class="stat"><b>9</b><span>Document categories</span></div><div class="stat"><b>—</b><span>Files uploaded</span></div><div class="stat"><b>0</b><span>Expiring soon</span></div><div class="stat"><b>—</b><span>Missing documents</span></div></section>
-<div class="tools"><input class="search" id="search" placeholder="Search documents…" aria-label="Search documents"><a class="drive" href="https://drive.google.com/drive/folders/106SmFjSUFmkIhZm7iZ6XaRTR4BsIPJPk" target="_blank" rel="noopener">Open private Drive</a></div>
-<section class="grid" id="docs">
-<article class="doc" data-name="passport identity"><div class="icon">▣</div><h2>Passport</h2><p>Passport copy, identity pages and related passport records.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
-<article class="doc" data-name="work permit employment permit"><div class="icon">▤</div><h2>Work Permit</h2><p>Current and previous work permit documents, including expiry records.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
-<article class="doc" data-name="medical health"><div class="icon">✚</div><h2>Medical</h2><p>Employment and immigration medical documents and certificates.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
-<article class="doc" data-name="immigration visa approval"><div class="icon">◎</div><h2>Immigration</h2><p>Visa, immigration approvals, receipts and supporting records.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
-<article class="doc" data-name="cv resume base documents"><div class="icon">CV</div><h2>CV &amp; Base Documents</h2><p>Latest CV, editable source material, certificates and reusable profile documents.</p><div class="foot"><span class="status pending">Organised</span><a class="open" href="./">View CV</a></div></article>
-<article class="doc" id="employment" data-name="employment letters reference contract"><div class="icon">▦</div><h2>Employment</h2><p>Employment certificates, reference letters, contracts and company records.</p><div class="foot"><span class="status">Records listed</span><a class="open" href="#verified">View</a></div></article>
-<article class="doc" data-name="education school certificates grade 10 12"><div class="icon">◇</div><h2>Education</h2><p>Grade 10, Grade 12, transcripts, certificates and academic records.</p><div class="foot"><span class="status">Records listed</span><a class="open" href="#verified">View</a></div></article>
-<article class="doc" data-name="photos id photo identity"><div class="icon">◉</div><h2>Photos &amp; ID</h2><p>Passport-size photographs and other identity-supporting files.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
-<article class="doc" data-name="other supporting documents"><div class="icon">＋</div><h2>Other Supporting Documents</h2><p>Additional records that do not belong to the main document categories.</p><div class="foot"><span class="status pending">Upload later</span><span class="open">Private</span></div></article>
+:root{--bg:#f5f2ec;--card:#fffdf9;--ink:#25221e;--muted:#6f685f;--gold:#c58b26;--green:#1f5a35;--green2:#eaf4ee;--red:#c53333;--red2:#fdeaea;--line:#ded5c8;--shadow:0 10px 28px rgba(65,47,24,.06)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}button,input,select{font:inherit}a{text-decoration:none;color:inherit}
+header{position:sticky;top:0;z-index:20;background:#1f1d19;color:#fff}.bar{max-width:1180px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}.brand{font:600 17px Georgia,serif;letter-spacing:.1em}.nav{display:flex;gap:7px;flex-wrap:wrap}.nav a{padding:8px 12px;border-radius:999px;font-size:13px}.nav a.active,.nav a:hover{background:var(--gold)}
+main{max-width:1180px;margin:auto;padding:30px 22px 60px}.hero{display:flex;justify-content:space-between;gap:20px;align-items:center}.hero-title{display:flex;gap:16px;align-items:center}.hero-icon{width:62px;height:62px;border-radius:18px;background:#f5e8cf;display:grid;place-items:center;font-size:28px;color:#865b12}.hero h1{margin:0;font:600 31px Georgia,serif}.hero p{margin:5px 0 0;color:var(--muted)}.secure{background:#edf7ef;border:1px solid #cfe6d5;border-radius:14px;padding:12px 15px;color:#265f39;font-size:13px;line-height:1.35}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}.stat b{display:block;font-size:24px;color:var(--green)}.stat span{font-size:12px;color:var(--muted)}
+.toolbar{display:grid;grid-template-columns:minmax(0,1fr) 180px 160px auto;gap:10px;margin:20px 0}.toolbar input,.toolbar select,.view-btn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:11px 13px}.view-btn{cursor:pointer;font-weight:700;color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}.grid.list{grid-template-columns:1fr}.doc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);display:flex;flex-direction:column;min-height:230px}.grid.list .doc{min-height:0}.topline{display:flex;justify-content:space-between;gap:10px}.icon{width:44px;height:44px;border-radius:12px;background:#edf4ff;display:grid;place-items:center;font-size:21px}.badge{align-self:flex-start;font-size:10px;font-weight:800;padding:6px 9px;border-radius:999px;background:var(--red2);color:var(--red);text-transform:uppercase;letter-spacing:.04em}.badge.ok{background:var(--green2);color:var(--green)}.doc h2{font:600 19px Georgia,serif;margin:13px 0 6px}.doc p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}.meta{margin-top:10px;font-size:12px;color:var(--muted);display:none}.doc.has-file .meta{display:block}.actions{margin-top:auto;padding-top:16px;display:flex;gap:8px;flex-wrap:wrap}.upload{flex:1;border:1px dashed #9bb8a4;background:#f9fcfa;color:var(--green);border-radius:10px;padding:10px 12px;font-weight:800;cursor:pointer}.small{border:1px solid var(--line);background:white;border-radius:10px;padding:10px 11px;cursor:pointer;font-weight:700;color:#4e4a44}.small.danger{color:#a02b2b}.file{display:none}
+.note{margin-top:22px;padding:13px 15px;border-left:3px solid var(--gold);background:#fff9f0;color:#655d53;font-size:13px;line-height:1.5}
+.modal{position:fixed;inset:0;background:rgba(18,17,15,.55);display:none;align-items:center;justify-content:center;padding:18px;z-index:40}.modal.open{display:flex}.modal-card{width:min(520px,100%);background:#fff;border-radius:18px;padding:20px;box-shadow:0 20px 60px rgba(0,0,0,.25)}.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center}.modal h3{margin:0;font:600 22px Georgia,serif}.close{border:0;background:#f2f0ec;border-radius:9px;width:36px;height:36px;cursor:pointer}.form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.form label{font-size:12px;color:var(--muted)}.form input{width:100%;margin-top:5px;padding:10px;border:1px solid var(--line);border-radius:10px}.full{grid-column:1/-1}.save{width:100%;margin-top:16px;border:0;background:var(--green);color:#fff;padding:12px 14px;border-radius:10px;font-weight:800;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.toolbar{grid-template-columns:1fr 1fr}.hero{align-items:flex-start;flex-direction:column}}
+@media(max-width:560px){.bar{align-items:flex-start;flex-direction:column}.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.form{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:27px}}
+</style>
+</head>
+<body>
+<header><div class="bar"><a class="brand" href="./">JA / JENISHA ADHIKARI</a><nav class="nav"><a href="./">CV</a><a class="active" href="documents.html">Documents</a><a href="./#experience">Employment</a><a href="./#education">Education</a></nav></div></header>
+
+<main>
+<section class="hero">
+<div class="hero-title"><div class="hero-icon">▱</div><div><h1>Document Center</h1><p>Upload, manage and view important documents in one place.</p></div></div>
+<div class="secure"><strong>Private browser storage</strong><br>Files stay on this device until cloud sync is added.</div>
 </section>
-<div class="note"><strong>Security design:</strong> Google Drive is the private storage location. This public GitHub Pages interface does not embed passport, medical, work-permit or immigration files. When secure authentication is added, document metadata, expiry tracking and controlled viewing can be connected without exposing the underlying files publicly.</div>
-<section id="verified" class="note"><strong>Existing verified records:</strong> the CV already includes employment and education verification information. These remain part of the professional profile while the new Document Center provides the organised document layer.</section>
-<footer>Jenisha Adhikari · Professional CV · Document Center</footer></main>
+
+<section class="stats">
+<div class="stat"><b>9</b><span>Document categories</span></div>
+<div class="stat"><b id="uploadedCount">0</b><span>Files uploaded</span></div>
+<div class="stat"><b id="expiryCount">0</b><span>Expiring soon</span></div>
+<div class="stat"><b id="missingCount">9</b><span>Missing documents</span></div>
+</section>
+
+<div class="toolbar">
+<input id="search" placeholder="Search documents..." aria-label="Search documents">
+<select id="filter"><option value="all">All categories</option><option value="uploaded">Uploaded</option><option value="missing">Not uploaded</option></select>
+<select id="sort"><option value="name">Sort by Name</option><option value="status">Sort by Status</option></select>
+<button class="view-btn" id="toggleView">Grid</button>
+</div>
+
+<section class="grid" id="docs"></section>
+
+<div class="note"><strong>Current storage:</strong> upload buttons are fully functional and files are saved in this browser using IndexedDB. They are not published to GitHub. To make uploads sync securely across devices into Google Drive, the next step is to add authenticated cloud upload rather than placing Google credentials in this public page.</div>
+
+<footer>Jenisha Adhikari · Professional CV · Document Center</footer>
+</main>
+
+<div class="modal" id="metaModal">
+<div class="modal-card">
+<div class="modal-head"><h3 id="modalTitle">Document details</h3><button class="close" id="closeModal">×</button></div>
+<div class="form">
+<label class="full">File name<input id="mName" disabled></label>
+<label>Issue date<input type="date" id="mIssue"></label>
+<label>Expiry date<input type="date" id="mExpiry"></label>
+<label class="full">Reference / document number<input id="mRef" placeholder="Optional"></label>
+<label class="full">Notes<input id="mNotes" placeholder="Optional notes"></label>
+</div>
+<button class="save" id="saveMeta">Save document</button>
+</div></div>
+
 <script>
-const q=document.getElementById('search');q.addEventListener('input',()=>{const s=q.value.toLowerCase().trim();document.querySelectorAll('.doc').forEach(x=>x.style.display=x.dataset.name.includes(s)||x.innerText.toLowerCase().includes(s)?'flex':'none')});
-</script></body></html>
+const categories=[
+{id:'passport',name:'Passport',icon:'▣',desc:'Passport copy, identity pages and related passport records.'},
+{id:'workpermit',name:'Work Permit',icon:'▤',desc:'Current and previous work permit documents, including expiry records.'},
+{id:'medical',name:'Medical',icon:'✚',desc:'Employment and immigration medical documents and certificates.'},
+{id:'immigration',name:'Immigration',icon:'✈',desc:'Visa, immigration approvals, receipts and supporting records.'},
+{id:'cv',name:'CV & Base Documents',icon:'CV',desc:'Latest CV, editable source material, certificates and reusable profile documents.'},
+{id:'employment',name:'Employment',icon:'▦',desc:'Employment certificates, reference letters, contracts and company records.'},
+{id:'education',name:'Education',icon:'◇',desc:'Educational certificates, transcripts and academic records.'},
+{id:'photos',name:'Photos & ID',icon:'◉',desc:'Passport-size photographs and other identity-supporting files.'},
+{id:'other',name:'Other Supporting Documents',icon:'＋',desc:'Any other relevant supporting documents.'}
+];
+let db,records={},pending=null,currentFilter='all',currentSort='name';
+const docs=document.getElementById('docs');
+const req=indexedDB.open('JenishaDocumentCenter',1);
+req.onupgradeneeded=e=>{const d=e.target.result;if(!d.objectStoreNames.contains('files'))d.createObjectStore('files',{keyPath:'category'})};
+req.onsuccess=e=>{db=e.target.result;loadAll()};
+req.onerror=()=>alert('Browser storage could not be opened.');
+
+function loadAll(){
+ const tx=db.transaction('files','readonly'),store=tx.objectStore('files'),all=store.getAll();
+ all.onsuccess=()=>{records={};all.result.forEach(r=>records[r.category]=r);render()};
+}
+function putRecord(r){const tx=db.transaction('files','readwrite');tx.objectStore('files').put(r);tx.oncomplete=()=>loadAll()}
+function deleteRecord(id){const tx=db.transaction('files','readwrite');tx.objectStore('files').delete(id);tx.oncomplete=()=>loadAll()}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function expiring(r){if(!r||!r.expiry)return false;const d=new Date(r.expiry+'T00:00:00');const now=new Date();const days=(d-now)/86400000;return days>=0&&days<=60}
+function render(){
+ let list=categories.filter(c=>{
+   const r=records[c.id];
+   if(currentFilter==='uploaded')return !!r;
+   if(currentFilter==='missing')return !r;
+   return true;
+ });
+ const q=document.getElementById('search').value.toLowerCase().trim();
+ if(q)list=list.filter(c=>(c.name+' '+c.desc).toLowerCase().includes(q));
+ list.sort((a,b)=>currentSort==='status'?(Number(!!records[b.id])-Number(!!records[a.id])):a.name.localeCompare(b.name));
+ docs.innerHTML=list.map(c=>{
+   const r=records[c.id];
+   const meta=r?'<div class="meta">'+esc(r.name)+(r.expiry?' · Expires '+esc(r.expiry):'')+(r.ref?' · Ref '+esc(r.ref):'')+'</div>':'';
+   return '<article class="doc '+(r?'has-file':'')+'" data-id="'+c.id+'"><div class="topline"><div class="icon">'+c.icon+'</div><span class="badge '+(r?'ok':'')+'">'+(r?'Uploaded':'Not uploaded')+'</span></div><h2>'+c.name+'</h2><p>'+c.desc+'</p>'+meta+'<div class="actions"><label class="upload">'+(r?'Replace Document':'Upload Document')+'<input class="file" type="file" accept=".pdf,.jpg,.jpeg,.png" data-cat="'+c.id+'"></label>'+(r?'<button class="small" data-view="'+c.id+'">View</button><button class="small danger" data-delete="'+c.id+'">Delete</button>':'')+'</div></article>';
+ }).join('');
+ document.querySelectorAll('.file').forEach(i=>i.addEventListener('change',handleFile));
+ document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>viewFile(b.dataset.view));
+ document.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>{if(confirm('Delete this saved document from this browser?'))deleteRecord(b.dataset.delete)});
+ const count=Object.keys(records).length;
+ document.getElementById('uploadedCount').textContent=count;
+ document.getElementById('missingCount').textContent=categories.length-count;
+ document.getElementById('expiryCount').textContent=Object.values(records).filter(expiring).length;
+}
+function handleFile(e){
+ const file=e.target.files[0];if(!file)return;
+ if(file.size>10*1024*1024){alert('Maximum file size is 10 MB.');e.target.value='';return}
+ if(!['application/pdf','image/jpeg','image/png'].includes(file.type)){alert('Use PDF, JPG or PNG files only.');e.target.value='';return}
+ pending={category:e.target.dataset.cat,file,name:file.name,issue:'',expiry:'',ref:'',notes:''};
+ document.getElementById('mName').value=file.name;
+ ['mIssue','mExpiry','mRef','mNotes'].forEach(id=>document.getElementById(id).value='');
+ document.getElementById('modalTitle').textContent=categories.find(c=>c.id===pending.category).name;
+ document.getElementById('metaModal').classList.add('open');
+}
+document.getElementById('saveMeta').onclick=()=>{
+ if(!pending)return;
+ const reader=new FileReader();
+ reader.onload=()=>putRecord({category:pending.category,name:pending.name,type:pending.file.type,size:pending.file.size,data:reader.result,issue:mIssue.value,expiry:mExpiry.value,ref:mRef.value.trim(),notes:mNotes.value.trim(),savedAt:new Date().toISOString()});
+ reader.readAsDataURL(pending.file);
+ closeModal();
+};
+function closeModal(){document.getElementById('metaModal').classList.remove('open');pending=null}
+document.getElementById('closeModal').onclick=closeModal;
+document.getElementById('metaModal').onclick=e=>{if(e.target.id==='metaModal')closeModal()};
+function viewFile(id){
+ const r=records[id];if(!r)return;
+ const w=window.open();if(!w){alert('Please allow pop-ups to view the document.');return}
+ if(r.type==='application/pdf'){w.location.href=r.data}else{w.document.write('<title>'+esc(r.name)+'</title><style>body{margin:0;background:#111;display:grid;place-items:center;min-height:100vh}img{max-width:100%;max-height:100vh}</style><img src="'+r.data+'">')}
+}
+document.getElementById('search').addEventListener('input',render);
+document.getElementById('filter').addEventListener('change',e=>{currentFilter=e.target.value;render()});
+document.getElementById('sort').addEventListener('change',e=>{currentSort=e.target.value;render()});
+document.getElementById('toggleView').onclick=e=>{docs.classList.toggle('list');e.target.textContent=docs.classList.contains('list')?'List':'Grid'};
+</script>
+</body>
+</html>

@@ -29,15 +29,15 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 </section>
 
 <section class="stats">
-<div class="stat"><b>5</b><span>Logical document groups</span></div>
+<div class="stat"><b>8</b><span>Document types</span></div>
 <div class="stat"><b id="uploadedCount">0</b><span>Files uploaded</span></div>
 <div class="stat"><b id="expiryCount">0</b><span>Expiring soon</span></div>
-<div class="stat"><b id="missingCount">9</b><span>Missing documents</span></div>
+<div class="stat"><b id="missingCount">8</b><span>Missing documents</span></div>
 </section>
 
 <div class="toolbar">
 <input id="search" placeholder="Search documents..." aria-label="Search documents">
-<select id="filter"><option value="all">All document groups</option><option value="identity">Identity & Immigration</option><option value="career">Career & Employment</option><option value="education">Education</option><option value="assets">Photos & ID Assets</option><option value="other">Other</option><option value="uploaded">Uploaded only</option><option value="missing">Not uploaded</option></select>
+<select id="filter"><option value="all">All document groups</option><option value="identity">Immigration Documents</option><option value="career">Career & Employment</option><option value="education">Education</option><option value="assets">Photos & ID Assets</option><option value="other">Other</option><option value="uploaded">Uploaded only</option><option value="missing">Not uploaded</option></select>
 <select id="sort"><option value="logical">Logical order</option><option value="name">Sort by Name</option><option value="status">Sort by Status</option></select>
 <button class="view-btn" id="toggleView">Grid</button>
 </div>
@@ -64,22 +64,21 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:32px}
 
 <script>
 const groups=[
-{id:'identity',name:'Identity & Immigration',note:'Official identity, permit, visa and medical compliance'},
-{id:'career',name:'Career & Employment',note:'CV files and employment evidence'},
+{id:'identity',name:'Immigration Documents',note:'Passport, work permit, visa/immigration and medical compliance'},
+{id:'career',name:'Employment',note:'Employment and work-history evidence'},
 {id:'education',name:'Education',note:'Academic qualifications only'},
 {id:'assets',name:'Photos & ID Assets',note:'Reusable photo and non-passport ID assets'},
 {id:'other',name:'Other',note:'Documents that do not fit another group'}
 ];
 const categories=[
-{id:'passport',group:'identity',order:1,name:'Passport',icon:'▣',desc:'Passport bio page, renewal pages and passport-only records.'},
-{id:'workpermit',group:'identity',order:2,name:'Work Permit',icon:'▤',desc:'Work permit card, permit approval and permit renewal records only.'},
-{id:'immigration',group:'identity',order:3,name:'Immigration',icon:'✈',desc:'Visa, entry permit, immigration approval and immigration receipts. Work permits stay in Work Permit.'},
-{id:'medical',group:'identity',order:4,name:'Medical',icon:'✚',desc:'Medical fitness certificates, screening reports and health-clearance documents.'},
-{id:'cv',group:'career',order:5,name:'CV & Base Files',icon:'CV',desc:'Current CV, editable CV source, profile text and cover-letter base files. Certificates belong in Education or Employment.'},
-{id:'employment',group:'career',order:6,name:'Employment',icon:'▦',desc:'Appointment letters, employment certificates, experience letters, references, contracts and transfer letters.'},
-{id:'education',group:'education',order:7,name:'Education',icon:'◇',desc:'School certificates, transcripts, mark sheets, migration certificates and academic qualifications.'},
-{id:'photos',group:'assets',order:8,name:'Photos & Other ID',icon:'◉',desc:'Passport-size photos and non-passport identity assets. Passport scans stay in Passport.'},
-{id:'other',group:'other',order:9,name:'Other Supporting Documents',icon:'＋',desc:'Only documents that do not logically belong in any category above.'}
+{id:'passport',group:'identity',order:1,name:'Passport',icon:'▣',desc:'Passport bio page, renewal pages and passport-only records kept under Immigration Documents.'},
+{id:'workpermit',group:'identity',order:2,name:'Work Permit',icon:'▤',desc:'Work permit card, permit approval and renewal records kept under Immigration Documents.'},
+{id:'immigration',group:'identity',order:3,name:'Immigration',icon:'✈',desc:'Visa, entry permit, immigration approvals, immigration receipts and related records.'},
+{id:'medical',group:'identity',order:4,name:'Medical',icon:'✚',desc:'Medical fitness certificates, screening reports and health-clearance documents required for work or immigration.'},
+{id:'employment',group:'career',order:5,name:'Employment',icon:'▦',desc:'Appointment letters, employment certificates, experience letters, references, contracts and transfer letters.'},
+{id:'education',group:'education',order:6,name:'Education',icon:'◇',desc:'School certificates, transcripts, mark sheets, migration certificates and academic qualifications.'},
+{id:'photos',group:'assets',order:7,name:'Photos & Other ID',icon:'◉',desc:'Passport-size photos and non-passport identity assets. Passport scans stay under Immigration Documents > Passport.'},
+{id:'other',group:'other',order:8,name:'Other Supporting Documents',icon:'＋',desc:'Only documents that do not logically belong in any category above.'}
 ];
 let db,records={},pending=null,currentFilter='all',currentSort='logical';
 const docs=document.getElementById('docs');
